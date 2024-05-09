@@ -1,0 +1,113 @@
+body {
+  background-color: #070f2b;
+  color: #eeeeee;
+}
+
+a {
+  color: #eeeeee;
+  text-decoration: none;
+}
+
+.challenge-list {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.button {
+  background-color: #535c91;
+  border: #9290c3 2px solid;
+  padding: 5px 10px;
+  max-width: 250px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.challenge-list .button {
+  width: 250px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.challenge-list img {
+  margin-top: 10px;
+  width: 200px;
+  height: 200px;
+  background-color: black;
+  border: solid 2px #9290c3;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: #1b1a55;
+}
+
+.canvas-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.ray-changer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* SLIDERS */
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input[type="range"] {
+    overflow: hidden;
+    width: 150px;
+    height: 10px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: inherit;
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 10px;
+    -webkit-appearance: auto;
+    color: #13bba4;
+    margin-top: -1px;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    width: 10px;
+    -webkit-appearance: none;
+    height: 20px;
+    cursor: ew-resize;
+    background: white;
+    box-shadow: -80px 0 0 80px #43e5f7;
+  }
+}
+/** FF*/
+input[type="range"]::-moz-range-progress {
+  background-color: #76abae;
+}
+input[type="range"]::-moz-range-track {
+  background-color: black;
+}
+input[type="range"]::-moz-range-thumb {
+  cursor: ew-resize;
+}
+/* IE*/
+input[type="range"]::-ms-fill-lower {
+  background-color: #76abae;
+}
+input[type="range"]::-ms-fill-upper {
+  background-color: black;
+}
+input[type="range"]::-ms-thumb {
+  cursor: ew-resize;
+}
