@@ -8,7 +8,7 @@ class Ray {
     this.a = { x: pos[0], y: pos[1] };
     this.b = this.coordinateUpdate();
     this.oldB = this.coordinateUpdate();
-    this.distanceToWall = Infinity;
+    this.objects = [];
   }
 
   show(ctx) {
@@ -29,35 +29,56 @@ class Ray {
     ctx.stroke();
   }
 
-  update(x, y, walls) {
+  update(x, y, objects) {
     this.a.x = x;
     this.a.y = y;
     this.b = this.coordinateUpdate();
     this.oldB = this.coordinateUpdate();
-    this.cast(walls);
+    this.cast(objects);
   }
 
-  cast(walls) {
+  cast(objects) {
     const x1 = this.a.x;
     const y1 = this.a.y;
     const x2 = this.b.x;
     const y2 = this.b.y;
-    for (let wall of walls) {
-      let x3 = wall.a.x;
-      let y3 = wall.a.y;
-      let x4 = wall.b.x;
-      let y4 = wall.b.y;
+    this.getIntersection(objects.boundaries, x1, y1, x2, y2);
+    // this.getIntersection(objects.enemyBoundaries, x1, y1, x2, y2);
+  }
 
+  getObjectColor(distanceToObject, hsl, particle) {
+    if (hsl === undefined) return "white";
+    const splitColor = hsl.split(", ");
+    const splitBrightness = splitColor[2].split("%");
+    const maxBrightness = Number(splitBrightness[0]);
+    let brightnessNum;
+    const strength = Number(particle.rays[0].strength);
+    const lightRange = particle.rays[0].length * strength;
+
+    // Considers Ray Strength
+    if (lightRange >= distanceToObject) {
+      brightnessNum =
+        maxBrightness - (distanceToObject / lightRange) * maxBrightness + 1;
+    } else {
+      brightnessNum = 0;
+    }
+    const newColor = `${splitColor[0]}, ${splitColor[1]}, ${brightnessNum}%)`;
+    return newColor;
+  }
+
+  getIntersection(objectArray, x1, y1, x2, y2) {
+    for (let object of objectArray) {
+      let x3 = object.a.x;
+      let y3 = object.a.y;
+      let x4 = object.b.x;
+      let y4 = object.b.y;
       const den = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
       if (den == 0) continue;
-
       const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / den;
       const u = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / den;
-
       if (0 <= t && t <= 1 && 0 <= u && u <= 1) {
         const newX = x1 + t * (x2 - x1);
         const newY = y1 + t * (y2 - y1);
-
         const oldLine = Math.sqrt(
           Math.abs(this.b.x - this.a.x) ** 2 +
             Math.abs(this.b.y - this.a.y) ** 2
@@ -65,13 +86,14 @@ class Ray {
         const newLine = Math.sqrt(
           Math.abs(newX - x1) ** 2 + Math.abs(newY - y1) ** 2
         );
+        this.objects.push({ obj: object, dist: newLine });
         if (newLine < oldLine) {
           this.b.x = newX;
           this.b.y = newY;
-          this.distanceToWall = newLine;
         }
       }
     }
+    this.objects.sort((objA, objB) => objB.dist - objA.dist);
   }
 
   coordinateUpdate() {

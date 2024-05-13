@@ -7,11 +7,12 @@ const windowSize =
 canvas.width = windowSize * (2 / 3);
 canvas.height = windowSize * (2 / 3);
 const mapSize = canvas.width * (1 / 4);
-const particle = new Particle(5, 20);
+const particle = new Particle(5, 18);
 const rayCountSelector = document.getElementById("ray-count");
 const rayColorSelector = document.getElementById("ray-color");
 const rayStrengthSelector = document.getElementById("ray-strength");
 const fovSelector = document.getElementById("fov");
+var lastUpdateTime = Date.now();
 const walls = [];
 
 // MAIN
@@ -55,7 +56,7 @@ function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  drawFloor();
+  renderFloor();
   renderWalls();
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, mapSize, mapSize);
@@ -79,7 +80,9 @@ function updateRays() {
     ray.strength = rayStrengthSelector.value;
   }
   particle.update(particle.x, particle.y, walls);
-  document.getElementById("ray-num").innerHTML = particle.rays.length;
+  document.getElementById("ray-num").innerHTML = Math.floor(
+    (particle.rays.length * fovSelector.value) / 360
+  );
   document.getElementById("strength-num").innerHTML =
     particle.rays[0].length * rayStrengthSelector.value;
   document.getElementById("fov-num").innerHTML = fovSelector.value;
@@ -88,11 +91,16 @@ function updateRays() {
 
 function moveParticle(e) {
   const pressedKey = e.key;
+  const currentTime = Date.now();
+  const deltaTime = (currentTime - lastUpdateTime) / 1000;
+  lastUpdateTime = currentTime;
   switch (pressedKey) {
     case "w":
-      particle.move(1, walls);
-      updateRays();
-      draw();
+      for (let i = 0; i < 2; i += particle.moveDistance) {
+        particle.move(1, walls);
+        updateRays();
+        draw();
+      }
       break;
     case "s":
       particle.move(0, walls);
@@ -120,13 +128,12 @@ function renderWalls() {
     }
   }
   const interval = canvas.width / scene.length;
-  const diagonal = Math.sqrt(2 * mapSize ** 2);
   let x = 0;
   let wallHeight = 0;
   for (let ray of scene) {
     const renderDistance = getRenderDistance(ray);
     wallHeight = (canvas.height / renderDistance) * 10;
-    ctx.fillStyle = getWallColor(renderDistance, rayColorSelector.value);
+    ctx.fillStyle = getWallColor(ray.distanceToWall, rayColorSelector.value);
     ctx.fillRect(
       x,
       canvas.width / 2 - wallHeight / 2,
@@ -137,6 +144,22 @@ function renderWalls() {
   }
 }
 
+// function renderFloor() {
+//   const scene = [];
+//   for (let ray of particle.rays) {
+//     if (ray.isInFov(particle.dirDeg, particle.fov)) {
+//       scene.push(ray);
+//     }
+//   }
+//   const interval = canvas.width / scene.length;
+//   let x = 0;
+//   let wallHeight = 0;
+//   for (let ray of scene) {
+//     const renderDistance = getRenderDistance(ray);
+//     wallHeight = (canvas.height / 2 / renderDistance);
+//   }
+// }
+
 function getRenderDistance(ray) {
   const newAngle = ray.dirDeg - particle.dirDeg;
   const newAngleRads = (newAngle * Math.PI) / 180;
@@ -144,19 +167,26 @@ function getRenderDistance(ray) {
   return renderDistance;
 }
 
-function getWallColor(renderDistance, hsl) {
-  const strength = Number(rayStrengthSelector.value) / 0.7;
-  const colorRange = particle.rays[0].length / strength;
-  const colorInterval = Math.floor(
-    (renderDistance / canvas.width) * colorRange
-  );
+function getWallColor(distanceToWall, hsl) {
   const splitColor = hsl.split(", ");
   const splitBrightness = splitColor[2].split("%");
-  var brightnessNum = Number(splitBrightness[0]);
-  brightnessNum -= colorInterval * (brightnessNum / 100);
+  const maxBrightness = Number(splitBrightness[0]);
+  let brightnessNum;
+  const strength = Number(rayStrengthSelector.value);
+  const lightRange = particle.rays[0].length * strength;
+
+  // Considers Ray Strength
+  if (lightRange >= distanceToWall) {
+    brightnessNum =
+      maxBrightness - (distanceToWall / lightRange) * maxBrightness + 1;
+  } else {
+    brightnessNum = 0;
+  }
+
   return `${splitColor[0]}, ${splitColor[1]}, ${brightnessNum}%)`;
 }
-function drawFloor() {
+
+function renderFloor() {
   let colorNum;
   console.log(canvas.height);
   for (let y = canvas.height; y >= canvas.height / 2; y--) {

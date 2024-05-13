@@ -1,6 +1,7 @@
 body {
   background-color: #070f2b;
   color: #eeeeee;
+  user-select: none;
 }
 
 a {
@@ -52,7 +53,11 @@ a {
 .canvas-section {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+}
+
+.canvas {
+  outline: green 5px inset;
+  border: black 10px solid;
 }
 
 .ray-changer {
@@ -61,6 +66,59 @@ a {
   justify-content: center;
   gap: 10px;
   margin-top: 10px;
+}
+
+.game-section {
+  margin: auto;
+  border-radius: 15px;
+  padding: 50px;
+}
+
+.game-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.game-button {
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: 0px 5px 2px 2px grey;
+}
+
+.up {
+  grid-row: 1;
+  grid-column: 2;
+}
+.left {
+  grid-row: 2;
+  grid-column: 1;
+}
+.right {
+  grid-row: 2;
+  grid-column: 3;
+}
+.down {
+  grid-row: 3;
+  grid-column: 2;
+}
+.b-button,
+.a-button {
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+.b-button {
+  grid-row: 2;
+  grid-column: 5;
+}
+.a-button {
+  grid-row: 1;
+  grid-column: 6;
 }
 
 /* SLIDERS */

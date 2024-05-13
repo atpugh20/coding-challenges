@@ -7,17 +7,17 @@
     <link rel="icon" href="../public/images/favicon.ico" type="icon" />
     <title>Light</title>
   </head>
-  <body>
+  <body draggable="false">
     <a href="../index.html" class="button">Home</a>
     <div>
       <div class="ray-changer">
         <label for="rayColor">Ray Color:</label>
         <select name="rayColor" id="ray-color" onkeydown="IgnoreAlpha(event)">
           <option value="hsl(0, 0%, 100%)" selected>White</option>
-          <option value="hsla(128, 61%, 50%)">Green</option>
+          <option value="hsl(128, 61%, 50%)">Green</option>
           <option value="hsl(0, 100%, 50%)">Red</option>
           <option value="hsl(210, 100%, 50%)">Blue</option>
-          <option value="hsla(271, 100%, 50%)">Purple</option>
+          <option value="hsl(271, 100%, 50%)">Purple</option>
           <option value="hsl(350, 100%, 88%)">Pink</option>
           <option value="hsl(33, 100%, 50%)">Orange</option>
           <option value="hsl(60, 100%, 50%)">Yellow</option>
@@ -66,6 +66,7 @@
       <div class="canvas-section">
         <canvas id="canvas">Not able to render canvas.</canvas>
       </div>
+      <p>Move with [ W, A, S, D ]</p>
     </div>
     <script src="../scripts/render-raycaster/boundary.js"></script>
     <script src="../scripts/render-raycaster/ray.js"></script>
