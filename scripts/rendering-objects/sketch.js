@@ -28,7 +28,7 @@ window.addEventListener("load", () => {
 });
 window.addEventListener("resize", () => {
   if (wH !== window.innerHeight || wW !== window.innerWidth) {
-    location.reload();
+    window.location.reload();
   }
 });
 
