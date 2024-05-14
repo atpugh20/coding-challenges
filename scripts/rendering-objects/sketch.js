@@ -15,7 +15,7 @@ const objects = new Objects(ctx);
 const particle = new Particle(mS / 4, mS / 5);
 
 // MAIN
-document.addEventListener(
+window.addEventListener(
   "touchmove",
   (event) => event.scale !== 1 && event.preventDefault(),
   { passive: false }
