@@ -1,6 +1,9 @@
 body {
   background-color: #070f2b;
   color: #eeeeee;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
   user-select: none;
 }
 
