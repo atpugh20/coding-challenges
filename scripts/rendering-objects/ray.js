@@ -8,7 +8,8 @@ class Ray {
     this.a = { x: pos[0], y: pos[1] };
     this.b = this.coordinateUpdate();
     this.oldB = this.coordinateUpdate();
-    this.objects = [];
+    // this.objects = [];
+    this.object;
   }
 
   show(ctx) {
@@ -42,6 +43,7 @@ class Ray {
     const y1 = this.a.y;
     const x2 = this.b.x;
     const y2 = this.b.y;
+    // console.log(objects.boundaries)
     this.getIntersection(objects.boundaries, x1, y1, x2, y2);
     // this.getIntersection(objects.enemyBoundaries, x1, y1, x2, y2);
   }
@@ -67,6 +69,7 @@ class Ray {
   }
 
   getIntersection(objectArray, x1, y1, x2, y2) {
+    let addLine = { obj: null, dist: Infinity };
     for (let object of objectArray) {
       let x3 = object.a.x;
       let y3 = object.a.y;
@@ -86,14 +89,16 @@ class Ray {
         const newLine = Math.sqrt(
           Math.abs(newX - x1) ** 2 + Math.abs(newY - y1) ** 2
         );
-        this.objects.push({ obj: object, dist: newLine });
+        // this.objects.push({ obj: object, dist: newLine });
         if (newLine < oldLine) {
+          addLine.obj = object;
+          addLine.dist = newLine;
           this.b.x = newX;
           this.b.y = newY;
         }
       }
     }
-    this.objects.sort((objA, objB) => objB.dist - objA.dist);
+    this.object = addLine;
   }
 
   coordinateUpdate() {

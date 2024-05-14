@@ -18,9 +18,7 @@ class Objects {
     this.obstacles;
     this.props;
     this.addWalls();
-    this.addEnemies();
     this.addBoundaries(ctx, this.walls);
-    this.addBoundaries(ctx, this.enemies);
   }
 
   renderObjects(particle, canvas) {
@@ -28,31 +26,28 @@ class Objects {
     const interval = canvas.width / scene.length;
     let x = 0;
     for (let ray of scene) {
-      for (let i = 0; i < ray.objects.length; i++) {
-        const renderDistance = getRenderDistance(ray);
-        const adjustedObjectHeight =
-          (ray.objects[i].obj.height / 1000) * canvas.height;
-        let renderHeight =
-          (canvas.height / renderDistance[i]) * adjustedObjectHeight;
-        ctx.fillStyle = ray.getObjectColor(
-          ray.objects[i].dist,
-          ray.objects[i].obj.color,
-          particle
-        );
-        ctx.fillRect(
-          x,
-          canvas.height / 2 - renderHeight / 2,
-          interval + 1,
-          renderHeight
-        );
-      }
+      const renderDistance = getRenderDistance(ray);
+      const adjustedObjectHeight =
+        (ray.object.obj.height / 1000) * canvas.height;
+      let renderHeight =
+        (canvas.height / renderDistance[0]) * adjustedObjectHeight;
+      ctx.fillStyle = ray.getObjectColor(
+        ray.object.dist,
+        ray.object.obj.color,
+        particle
+      );
+      ctx.fillRect(
+        x,
+        canvas.height / 2 - renderHeight / 2,
+        interval + 1,
+        renderHeight
+      );
       x += interval;
     }
-    
   }
 
   addEnemies() {
-    this.enemies = [new Enemy(mS / 2, 10, 2, 2, 0, red)];
+    // this.enemies = [new Enemy(mS / 2, 10, 2, 2, 0, red)];
   }
 
   addWalls() {

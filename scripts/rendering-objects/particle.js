@@ -55,21 +55,16 @@ class Particle {
     if (dir === 1) {
       dirRads = (this.dirDeg * Math.PI) / 180;
       obstacle = this.checkForObstacle(this.dirDeg, objects);
-      if (!obstacle) {
-        this.x += Math.cos(dirRads) * this.moveDistance;
-        this.y += Math.sin(dirRads) * this.moveDistance;
-        this.updateRayCount(this.rayCount);
-      }
     } else {
       const reverseAngle =
         this.dirDeg > 180 ? this.dirDeg - 180 : 180 + this.dirDeg;
       dirRads = (reverseAngle * Math.PI) / 180;
       obstacle = this.checkForObstacle(reverseAngle, objects);
-      if (!obstacle) {
-        this.x += Math.cos(dirRads) * this.moveDistance;
-        this.y += Math.sin(dirRads) * this.moveDistance;
-        this.updateRayCount(this.rayCount);
-      }
+    }
+    if (!obstacle) {
+      this.x += Math.cos(dirRads) * this.moveDistance;
+      this.y += Math.sin(dirRads) * this.moveDistance;
+      this.updateRayCount(this.rayCount);
     }
   }
 
@@ -77,7 +72,7 @@ class Particle {
     for (let ray of this.rays) {
       ray.cast(objects);
       if (ray.isInFov(angleDeg, this.movementField)) {
-        if (ray.objects[ray.objects.length - 1].dist <= this.moveDistance) {
+        if (ray.object.dist <= this.moveDistance) {
           return true;
         }
       }

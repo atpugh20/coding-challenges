@@ -27,11 +27,12 @@ window.addEventListener("resize", () => {
   }
 });
 
-["keydown", "mousedown"].forEach((eventType) => {
+["keydown", "mousedown", "touchstart"].forEach((eventType) => {
   window.addEventListener(
     eventType,
     (e) => {
       if (e.repeat) return;
+      console.log(e.targetTouches);
       clearInterval(id);
       moveParticle(e);
     },
@@ -39,7 +40,7 @@ window.addEventListener("resize", () => {
   );
 });
 
-["keyup", "mouseup"].forEach((eventType) => {
+["keyup", "mouseup", "touchend"].forEach((eventType) => {
   window.addEventListener(eventType, (e) => {
     clearInterval(id);
   });
@@ -56,20 +57,18 @@ function draw() {
 
 function moveParticle(e) {
   id = setInterval(() => {
-    if (e.type === "keydown" || e.type === "mousedown") {
-      if (e.key === "w" || e.target.classList.contains("up")) {
-        particle.move(1, objects);
-        draw();
-      } else if (e.key === "s" || e.target.classList.contains("down")) {
-        particle.move(0, objects);
-        draw();
-      } else if (e.key === "a" || e.target.classList.contains("left")) {
-        particle.changeDirection(1, ctx, objects);
-        draw();
-      } else if (e.key === "d" || e.target.classList.contains("right")) {
-        particle.changeDirection(0, ctx, objects);
-        draw();
-      }
+    if (e.key === "w" || e.target.classList.contains("up")) {
+      particle.move(1, objects);
+      draw();
+    } else if (e.key === "s" || e.target.classList.contains("down")) {
+      particle.move(0, objects);
+      draw();
+    } else if (e.key === "a" || e.target.classList.contains("left")) {
+      particle.changeDirection(1, ctx, objects);
+      draw();
+    } else if (e.key === "d" || e.target.classList.contains("right")) {
+      particle.changeDirection(0, ctx, objects);
+      draw();
     }
   }, 16.66);
 }
@@ -79,9 +78,9 @@ function getRenderDistance(ray) {
   const newAngle = ray.dirDeg - particle.dirDeg;
   const newAngleRads = (newAngle * Math.PI) / 180;
   const renderDistances = [];
-  for (let object of ray.objects) {
-    renderDistances.push(object.dist * Math.cos(newAngleRads));
-  }
+  // for (let object of ray.objects) {
+  renderDistances.push(ray.object.dist * Math.cos(newAngleRads));
+  // }
   return renderDistances;
 }
 
