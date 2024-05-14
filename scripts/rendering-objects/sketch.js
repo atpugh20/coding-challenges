@@ -184,3 +184,15 @@ function repositionButtons() {
     gameButtonSection.style.gridTemplateColumns = "1fr 1fr 1fr 9fr 1fr 1fr 1fr";
   }
 }
+
+document.addEventListener(
+  "touchstart",
+  (e) => {
+    if (e.touches.lenght > 1) {
+      e.preventDefault();
+    }
+  },
+  {
+    passive: false,
+  }
+);
