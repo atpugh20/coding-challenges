@@ -153,11 +153,6 @@ function setup() {
     button.style.fontSize = `${canvas.width / 8}px`;
   }
   if (wW >= wH) repositionButtons();
-  gameButtonSection.addEventListener(
-    "touchmove",
-    (event) => event.scale !== 1 && event.preventDefault(),
-    { passive: false }
-  );
 }
 
 function repositionButtons() {
