@@ -74,9 +74,10 @@ a {
 }
 
 .game-section {
-  margin: auto;
-  border-radius: 15px;
-  padding: 50px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
 }
 
 .game-buttons {
@@ -92,6 +93,7 @@ a {
   background-color: white;
   box-shadow: 0px 5px 2px 2px grey;
   touch-action: manipulation;
+  visibility: hidden;
 }
 
 .up {

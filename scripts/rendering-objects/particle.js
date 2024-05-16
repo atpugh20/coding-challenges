@@ -8,19 +8,12 @@ class Particle {
     this.rayCount = 0.1;
     this.fov = 80;
     this.movementField = 2;
-    this.dirDeg = 0;
-    for (
-      let angle = this.dirDeg - 180;
-      angle < this.dirDeg + 180;
-      angle += this.rayCount
-    ) {
-      this.rays.push(new Ray([this.x, this.y], angle));
-    }
+    this.dirDeg = 90;
+    this.updateRayCount(this.rayCount);
   }
 
-  show(ctx, objects) {
+  show(ctx) {
     for (let ray of this.rays) {
-      ray.cast(objects);
       if (ray.isInFov(this.dirDeg, this.fov)) {
         ray.show(ctx);
       }
