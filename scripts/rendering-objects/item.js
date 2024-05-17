@@ -6,13 +6,13 @@ class Item {
     this.width = width;
     this.height = height;
     this.img = new Image();
-    this.img.src = `../public/images/assets/weapons/${this.name}1.svg`;
+    this.img.src = `/../public/images/assets/weapons/${this.name}1.svg`;
     this.swing1 = new Image();
-    this.swing1.src = `../public/images/assets/weapons/${this.name}2.svg`;
+    this.swing1.src = `/../public/images/assets/weapons/${this.name}2.svg`;
     this.swing2 = new Image();
-    this.swing2.src = `../public/images/assets/weapons/${this.name}3.svg`;
+    this.swing2.src = `/../public/images/assets/weapons/${this.name}3.svg`;
     this.swing3 = new Image();
-    this.swing3.src = `../public/images/assets/weapons/${this.name}4.svg`;
+    this.swing3.src = `/../public/images/assets/weapons/${this.name}4.svg`;
   }
 
   render(ctx, counter) {
