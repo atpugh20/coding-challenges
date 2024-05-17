@@ -66,16 +66,14 @@ class Objects {
         (canvas.width * 3) / 7,
         (canvas.height * 3) / 5,
         canvas.width / 2,
-        canvas.height / 2,
-        "/../../../public/images/assets/weapons/sword1Grey.svg"
+        canvas.height / 2
       ),
       new Item(
         "stick",
         (canvas.width * 3) / 7,
         (canvas.height * 3) / 5,
         canvas.width / 2,
-        canvas.height / 2,
-        "/../../../public/images/assets/weapons/stickWeapon.svg"
+        canvas.height / 2
       ),
     ];
   }
