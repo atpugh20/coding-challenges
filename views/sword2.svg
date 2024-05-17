@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg fill="#969696" width="256px" height="256px" viewBox="0 0 24.00 24.00" preserveAspectRatio="xMinYMin" class="jam jam-sword-f" stroke="#969696" stroke-width="0.00024000000000000003" xmlns="http://www.w3.org/2000/svg">
+  <defs/>
+  <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+  <g id="SVGRepo_iconCarrier" style="transform-origin: 9.85361px 9.6466px;" transform="matrix(-1, 0.000001, 0.000001, 1, 4.655132, 3.366915)">
+    <path d="M 9.646 14.096 C 10.2 14.631 9.967 15.564 9.227 15.777 C 8.871 15.878 8.489 15.776 8.232 15.51 L 6.818 14.096 L 3.99 16.925 C 4.534 17.47 4.285 18.399 3.541 18.598 C 3.196 18.691 2.8280000000000003 18.592 2.575 18.339 L 1.161 16.925 C 0.616 16.381 0.8650000000000001 15.451 1.609 15.251 C 1.9540000000000002 15.159 2.322 15.257 2.575 15.51 L 5.404 12.682 L 3.99 11.268 C 3.455 10.714 3.7199999999999998 9.789 4.467 9.603 C 4.802 9.52 5.156 9.614 5.404 9.854 C 4.876 10.47 9.118 14.712 9.646 14.096 Z" style="stroke: rgb(62, 85, 165); stroke-width: 0px; fill-rule: nonzero; paint-order: stroke markers; fill: rgb(87, 72, 178);"/>
+    <path d="M 10.354 13.389 C 9.474 14.093 5.23 9.85 6.11 9.146 L 14.596 0.6609999999999999 L 18.99 0.708 L 18.839 4.904 L 10.354 13.389 Z" style="stroke: rgb(62, 85, 165); stroke-width: 0px; fill-rule: nonzero; paint-order: stroke markers;"/>
+  </g>
+</svg>
