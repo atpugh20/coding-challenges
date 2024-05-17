@@ -199,15 +199,19 @@ function repositionButtons() {
 
   const gameButtons = document.getElementsByClassName("game-button");
   if (wW < wH * 2) {
-    gameButtonSection.style.width = `${canvas.width * 1.75}px`;
+    gameButtonSection.style.width = `${canvas.width * 1.9}px`;
     gameButtonSection.style.gridTemplateColumns =
       "1fr 1fr 1fr 14fr 1fr 1fr 1fr";
     for (let button of gameButtons) {
-      button.style.width = `${canvas.width / 12}px`;
-      button.style.fontSize = `${canvas.width / 16}px`;
+      button.style.width = `${canvas.width / 8}px`;
+      button.style.fontSize = `${canvas.width / 10}px`;
     }
   } else {
     gameButtonSection.style.width = `${canvas.width * 3}px`;
     gameButtonSection.style.gridTemplateColumns = "1fr 1fr 1fr 9fr 1fr 1fr 1fr";
+    for (let button of gameButtons) {
+      button.style.width = `${canvas.width / 5}px`;
+      button.style.fontSize = `${canvas.width / 7}px`;
+    }
   }
 }
