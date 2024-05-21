@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../public/styles/styles.css" />
+    <link rel="icon" href="../../public/images/favicon.ico" type="icon" />
+
+    <title>Light</title>
+  </head>
+  <body>
+    <a href="../../index.html" class="button">Home</a>
+    <div class="game-section" id="game-section">
+      <div class="canvas-section">
+        <canvas class="canvas" id="canvas">Not able to render canvas.</canvas>
+      </div>
+      <div class="game-buttons" id="game-buttons">
+        <img
+          class="game-button up"
+          src="../../public/images/assets/buttons/upButton.svg"
+          alt=""
+          draggable="false"
+        />
+        <img
+          class="game-button left"
+          src="../../public/images/assets/buttons/leftButton.svg"
+          alt=""
+          draggable="false"
+        />
+        <img
+          class="game-button right"
+          src="../../public/images/assets/buttons/rightButton.svg"
+          alt=""
+          draggable="false"
+        />
+        <img
+          class="game-button down"
+          src="../../public/images/assets/buttons/downButton.svg"
+          alt=""
+          draggable="false"
+        />
+        <div class="game-button b-button" id="b-button">B</div>
+        <div class="game-button a-button" id="a-button">A</div>
+      </div>
+    </div>
+    <script src="../../scripts//rendering-objects/boundary.js"></script>
+    <script src="../../scripts/rendering-objects/wall.js"></script>
+    <script src="../../scripts/rendering-objects/enemy.js"></script>
+    <script src="../../scripts/rendering-objects/item.js"></script>
+    <script src="../../scripts/rendering-objects/objects.js"></script>
+    <script src="../../scripts/rendering-objects/ray.js"></script>
+    <script src="../../scripts/rendering-objects/particle.js"></script>
+    <script src="../../scripts/rendering-objects/sketch.js"></script>
+  </body>
+</html>

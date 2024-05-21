@@ -1,5 +1,5 @@
 body {
-  background-color: #070f2b;
+  background-color: rgb(20, 20, 20);
   color: #eeeeee;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -7,6 +7,11 @@ body {
   -o-user-select: none;
   user-select: none;
   touch-action: pan-y;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
 }
 
 a {
@@ -20,39 +25,45 @@ a {
   flex-direction: row;
   flex-wrap: wrap;
   gap: 25px;
+  margin-top: 120px;
 }
 
 .button {
-  background-color: #535c91;
-  border: #9290c3 2px solid;
+  background-color: rgb(12, 12, 12);
+  border: rgb(10, 185, 10) 2px solid;
   padding: 5px 10px;
   max-width: 250px;
-  border-radius: 5px;
+  border-radius: 15px;
   text-align: center;
 }
 
 .challenge-list .button {
-  width: 250px;
-  height: 250px;
+  width: 150px;
+  height: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 0px;
+  margin-bottom: 75px;
 }
 
 .challenge-list img {
-  margin-top: 10px;
-  width: 200px;
-  height: 200px;
+  position: absolute;
+  width: 100px;
+  height: 100px;
   background-color: black;
-  border: solid 2px #9290c3;
-  border-radius: 5px;
+  border: solid 2px white;
+  border-radius: 25px;
+  translate: 0 -50px;
 }
 
-.button:hover {
-  background-color: #1b1a55;
+.challenge-list a p {
+  translate: 0 23px;
+}
+
+.button:hover img {
+  animation: hover-project 400ms forwards;
 }
 
 .canvas-section {
@@ -65,12 +76,24 @@ a {
   border: black 10px solid;
 }
 
-.ray-changer {
+.ray-changer,
+.sand-selectors {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   margin-top: 10px;
+}
+
+.sand-selectors {
+  margin-top: 0;
+}
+
+.sand-changer {
+  background-color: #4da167;
+  padding: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 .game-section {
@@ -128,6 +151,22 @@ a {
 .a-button {
   grid-row: 1;
   grid-column: 6;
+}
+
+.sand-canvas {
+  cursor: none;
+}
+
+/* ANIMATIONS */
+
+@keyframes hover-project {
+  50% {
+    translate: 0 -65px;
+  }
+  100% {
+    translate: 0 -55px;
+    scale: 110%;
+  }
 }
 
 /* SLIDERS */
