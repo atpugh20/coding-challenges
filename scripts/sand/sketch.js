@@ -19,13 +19,14 @@ var sandColors = getSandColor(colorCode);
 
 // MAIN
 
-window.addEventListener("mousemove", (e) => {
-  trackMouse(e);
+["mousemove", "touchmove"].forEach((event) => {
+  window.addEventListener(event, (e) => {
+    trackMouse(e);
+  });
 });
 
 ["mousedown", "touchstart"].forEach((event) => {
   window.addEventListener(event, (e) => {
-    trackMouse(e);
     clearInterval(interval);
     interval = setInterval(createSand, 1000 / FPS);
   });
