@@ -25,8 +25,8 @@ window.addEventListener("mousemove", (e) => {
 
 ["mousedown", "touchstart"].forEach((event) => {
   window.addEventListener(event, (e) => {
+    trackMouse(e);
     clearInterval(interval);
-    // trackMouse(e);
     interval = setInterval(createSand, 1000 / FPS);
   });
 });
