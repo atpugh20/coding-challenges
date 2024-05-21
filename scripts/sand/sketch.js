@@ -2,7 +2,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const sandColorSelector = document.getElementById("sand-color");
 
-const sL = 400; // Side Length
+const sL = window.innerWidth < 500 ? 300 : 400; // Side Length
 const particleSize = 5;
 const numberOfSquares = sL / particleSize;
 const FPS = 240;
@@ -27,6 +27,7 @@ var sandColors = getSandColor(colorCode);
 
 ["mousedown", "touchstart"].forEach((event) => {
   window.addEventListener(event, (e) => {
+    console.log(e);
     clearInterval(interval);
     interval = setInterval(createSand, 1000 / FPS);
   });
@@ -164,8 +165,15 @@ function createGrid() {
 
 function trackMouse(e) {
   const rect = canvas.getBoundingClientRect();
-  const mouseX = e.clientX - rect.left;
-  const mouseY = e.clientY - rect.top;
+  let mouseX;
+  let mouseY;
+  if (e.changedTouches) {
+    mouseX = e.changedTouches[0].clientX - rect.left;
+    mouseY = e.changedTouches[0].clientY - rect.top;
+  } else {
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  }
   cursor.x = mouseX;
   cursor.y = mouseY;
 }
