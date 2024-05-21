@@ -23,13 +23,17 @@ window.addEventListener("mousemove", (e) => {
   trackMouse(e);
 });
 
-window.addEventListener("mousedown", () => {
-  clearInterval(interval);
-  interval = setInterval(createSand, 1000 / FPS);
+["mousedown", "touchstart"].forEach((event) => {
+  window.addEventListener(event, () => {
+    clearInterval(interval);
+    interval = setInterval(createSand, 1000 / FPS);
+  });
 });
 
-window.addEventListener("mouseup", () => {
-  clearInterval(interval);
+["mouseup", "touchend"].forEach((event) => {
+  window.addEventListener(event, () => {
+    clearInterval(interval);
+  });
 });
 sandColorSelector.addEventListener("input", (e) => {
   sandColors = getSandColor(Number(e.target.value));
