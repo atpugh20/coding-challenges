@@ -5,7 +5,7 @@ const sandColorSelector = document.getElementById("sand-color");
 const sL = 400; // Side Length
 const particleSize = 5;
 const numberOfSquares = sL / particleSize;
-const FPS = 60;
+const FPS = 240;
 const gravity = 0.1;
 var colorCode = (sandColorSelector.value = 47);
 
@@ -24,8 +24,9 @@ window.addEventListener("mousemove", (e) => {
 });
 
 ["mousedown", "touchstart"].forEach((event) => {
-  window.addEventListener(event, () => {
+  window.addEventListener(event, (e) => {
     clearInterval(interval);
+    // trackMouse(e);
     interval = setInterval(createSand, 1000 / FPS);
   });
 });
