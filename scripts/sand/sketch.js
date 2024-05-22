@@ -2,7 +2,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const sandColorSelector = document.getElementById("sand-color");
 
-const sL = window.innerWidth < 500 ? 300 : 400; // Side Length
+const sL = window.innerWidth < 500 ? 350 : 400; // Side Length
 const particleSize = 5;
 const numberOfSquares = sL / particleSize;
 const FPS = 240;

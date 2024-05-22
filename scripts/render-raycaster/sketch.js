@@ -1,11 +1,8 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const windowSize =
-  window.innerHeight < window.innerWidth
-    ? window.innerHeight
-    : window.innerWidth;
-canvas.width = windowSize * (2 / 3);
-canvas.height = windowSize * (2 / 3);
+const sL = window.innerWidth < 500 ? 350 : 400;
+canvas.width = sL;
+canvas.height = sL;
 const mapSize = canvas.width * (1 / 4);
 const particle = new Particle(5, 18);
 const rayCountSelector = document.getElementById("ray-count");
@@ -83,8 +80,9 @@ function updateRays() {
   document.getElementById("ray-num").innerHTML = Math.floor(
     (particle.rays.length * fovSelector.value) / 360
   );
-  document.getElementById("strength-num").innerHTML =
-    particle.rays[0].length * rayStrengthSelector.value;
+  document.getElementById("strength-num").innerHTML = Math.floor(
+    particle.rays[0].length * rayStrengthSelector.value
+  );
   document.getElementById("fov-num").innerHTML = fovSelector.value;
   draw();
 }
@@ -92,7 +90,6 @@ function updateRays() {
 function moveParticle(e) {
   const pressedKey = e.key;
   const currentTime = Date.now();
-  const deltaTime = (currentTime - lastUpdateTime) / 1000;
   lastUpdateTime = currentTime;
   switch (pressedKey) {
     case "w":
@@ -143,22 +140,6 @@ function renderWalls() {
     x += interval;
   }
 }
-
-// function renderFloor() {
-//   const scene = [];
-//   for (let ray of particle.rays) {
-//     if (ray.isInFov(particle.dirDeg, particle.fov)) {
-//       scene.push(ray);
-//     }
-//   }
-//   const interval = canvas.width / scene.length;
-//   let x = 0;
-//   let wallHeight = 0;
-//   for (let ray of scene) {
-//     const renderDistance = getRenderDistance(ray);
-//     wallHeight = (canvas.height / 2 / renderDistance);
-//   }
-// }
 
 function getRenderDistance(ray) {
   const newAngle = ray.dirDeg - particle.dirDeg;

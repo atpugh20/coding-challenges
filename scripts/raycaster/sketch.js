@@ -1,18 +1,20 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth * (2 / 3);
-canvas.height = window.innerWidth * (2 / 3);
-const particle = new Particle(canvas.width / 2, canvas.height / 2);
+
+const sL = window.innerWidth < 500 ? 300 : 400;
+canvas.width = sL;
+canvas.height = sL;
+const particle = new Particle(sL / 2, sL / 2);
 const walls = [];
 const rayCountSlider = document.getElementById("ray-count");
 const rayColorSelector = document.getElementById("ray-color");
 const rayLengthSelector = document.getElementById("ray-length");
 const rayStrengthSelector = document.getElementById("ray-strength");
 for (let i = 0; i < 5; i++) {
-  const x1 = Math.floor(Math.random() * canvas.width);
-  const y1 = Math.floor(Math.random() * canvas.width);
-  const x2 = Math.floor(Math.random() * canvas.width);
-  const y2 = Math.floor(Math.random() * canvas.width);
+  const x1 = Math.floor(Math.random() * sL);
+  const y1 = Math.floor(Math.random() * sL);
+  const x2 = Math.floor(Math.random() * sL);
+  const y2 = Math.floor(Math.random() * sL);
   walls.push(new Boundary(x1, y1, x2, y2));
 }
 
@@ -23,9 +25,11 @@ window.addEventListener("load", () => {
   draw();
 });
 
-canvas.addEventListener("mousemove", (e) => {
-  trackMouse(e);
-  draw();
+["mousemove", "touchmove"].forEach((event) => {
+  canvas.addEventListener(event, (e) => {
+    trackMouse(e);
+    draw();
+  });
 });
 
 rayCountSlider.addEventListener("input", (e) => {
@@ -39,9 +43,9 @@ rayStrengthSelector.addEventListener("input", updateRays);
 // FUNCTIONS
 
 function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, sL, sL);
   ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillRect(0, 0, sL, sL);
   for (let wall of walls) {
     wall.show(ctx);
   }
@@ -69,7 +73,14 @@ function updateRays() {
 
 function trackMouse(e) {
   const rect = canvas.getBoundingClientRect();
-  var mouseX = e.clientX - rect.left;
-  var mouseY = e.clientY - rect.top;
+  let mouseX;
+  let mouseY;
+  if (e.changedTouches) {
+    mouseX = e.changedTouches[0].clientX - rect.left;
+    mouseY = e.changedTouches[0].clientY - rect.top;
+  } else {
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  }
   particle.update(mouseX, mouseY);
 }

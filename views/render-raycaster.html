@@ -8,64 +8,73 @@
     <title>Light</title>
   </head>
   <body draggable="false">
-    <a href="../index.html" class="button">Home</a>
+    <a href="../index.html" class="button back">Home</a>
     <div>
-      <div class="ray-changer">
-        <label for="rayColor">Ray Color:</label>
-        <select name="rayColor" id="ray-color" onkeydown="IgnoreAlpha(event)">
-          <option value="hsl(0, 0%, 100%)" selected>White</option>
-          <option value="hsl(128, 61%, 50%)">Green</option>
-          <option value="hsl(0, 100%, 50%)">Red</option>
-          <option value="hsl(210, 100%, 50%)">Blue</option>
-          <option value="hsl(271, 100%, 50%)">Purple</option>
-          <option value="hsl(350, 100%, 88%)">Pink</option>
-          <option value="hsl(33, 100%, 50%)">Orange</option>
-          <option value="hsl(60, 100%, 50%)">Yellow</option>
-          <option value="hsl(180, 100%, 50%)">Cyan</option>
-        </select>
-      </div>
-      <div class="ray-changer">
-        <label for="rayCount">Ray Count:</label>
-        <input
-          type="range"
-          id="ray-count"
-          name="rayCount"
-          value="-0.1"
-          min="-10.1"
-          max="-0.1"
-          step="1"
-        />
-        <label for="rayCount" id="ray-num"></label>
-      </div>
-      <div class="ray-changer">
-        <label for="rayStrength">Ray Strength: </label>
-        <input
-          type="range"
-          id="ray-strength"
-          name="rayStrength"
-          value="0.7"
-          min="0.1"
-          max="0.7"
-          step="0.1"
-        />
-        <label for="rayStrength" id="strength-num"></label>
-      </div>
-      <div class="ray-changer">
-        <label for="fov">Field of View: </label>
-        <input
-          type="range"
-          id="fov"
-          name="fov"
-          value="80"
-          min="10"
-          max="360"
-          step="10"
-        />
-        <label for="fov" id="fov-num"></label>
-      </div>
       <div class="canvas-section">
         <canvas id="canvas">Not able to render canvas.</canvas>
       </div>
+      <div class="selector-section">
+        <div class="ray-selectors">
+          <div class="ray-changer">
+            <label for="rayColor">Ray Color:</label>
+            <select
+              name="rayColor"
+              id="ray-color"
+              onkeydown="IgnoreAlpha(event)"
+            >
+              <option value="hsl(0, 0%, 100%)" selected>White</option>
+              <option value="hsl(128, 61%, 50%)">Green</option>
+              <option value="hsl(0, 100%, 50%)">Red</option>
+              <option value="hsl(210, 100%, 50%)">Blue</option>
+              <option value="hsl(271, 100%, 50%)">Purple</option>
+              <option value="hsl(350, 100%, 88%)">Pink</option>
+              <option value="hsl(33, 100%, 50%)">Orange</option>
+              <option value="hsl(60, 100%, 50%)">Yellow</option>
+              <option value="hsl(180, 100%, 50%)">Cyan</option>
+            </select>
+          </div>
+          <div class="ray-changer">
+            <label for="rayCount">Ray Count:</label>
+            <input
+              type="range"
+              id="ray-count"
+              name="rayCount"
+              value="-0.1"
+              min="-10.1"
+              max="-0.1"
+              step="1"
+            />
+            <label for="rayCount" id="ray-num"></label>
+          </div>
+          <div class="ray-changer">
+            <label for="rayStrength">Ray Strength: </label>
+            <input
+              type="range"
+              id="ray-strength"
+              name="rayStrength"
+              value="0.7"
+              min="0.1"
+              max="0.7"
+              step="0.1"
+            />
+            <label for="rayStrength" id="strength-num"></label>
+          </div>
+          <div class="ray-changer">
+            <label for="fov">Field of View: </label>
+            <input
+              type="range"
+              id="fov"
+              name="fov"
+              value="80"
+              min="10"
+              max="360"
+              step="10"
+            />
+            <label for="fov" id="fov-num"></label>
+          </div>
+        </div>
+      </div>
+
       <p>Move with [ W, A, S, D ]</p>
     </div>
     <script src="../scripts/render-raycaster/boundary.js"></script>
