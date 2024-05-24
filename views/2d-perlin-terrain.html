@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../public/styles/styles.css" />
+    <link
+      rel="shortcut icon"
+      href="../public/images/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <title>2-D Perlin Terrain</title>
+  </head>
+  <body>
+    <a href="../index.html" class="button back">Home</a>
+    <div class="canvas-section">
+      <canvas id="canvas">Not able to render canvas.</canvas>
+    </div>
+    <div class="selector-section">
+      <div class="ray-selectors">
+        <div class="ray-changer">
+          <label for="hillColor">Hill Color:</label>
+          <select
+            name="hillColor"
+            id="hill-color"
+            onkeydown="IgnoreAlpha(event)"
+          >
+            <option value="100" selected>Green</option>
+            <option value="0">Red</option>
+            <option value="210">Blue</option>
+            <option value="270">Purple</option>
+            <option value="350">Pink</option>
+            <option value="33">Orange</option>
+            <option value="60">Yellow</option>
+            <option value="180">Cyan</option>
+          </select>
+        </div>
+        <div class="ray-changer">
+          <label for="scale">Scale:</label>
+          <input
+            type="range"
+            id="scale"
+            name="scale"
+            value="150"
+            min="50"
+            max="250"
+            step="50"
+          />
+          <label for="scale" id="scale-num"></label>
+        </div>
+        <div class="ray-changer">
+          <label for="brightness">Brightness: </label>
+          <input
+            type="range"
+            id="brightness"
+            name="brightness"
+            value="30"
+            min="20"
+            max="60"
+            step="10"
+          />
+          <label for="brightness" id="brightness-num"></label>
+        </div>
+        <div class="ray-changer">
+          <label for="width">Line Width </label>
+          <input
+            type="range"
+            id="width"
+            name="width"
+            value="1"
+            min="1"
+            max="10"
+            step="1"
+          />
+          <label for="width" id="width-num"></label>
+        </div>
+      </div>
+    </div>
+    <script src="http://joeiddon.github.io/perlin/perlin.js"></script>
+    <script src="../scripts/perlin-flow/sketch.js"></script>
+  </body>
+</html>
