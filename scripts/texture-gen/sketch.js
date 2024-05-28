@@ -1,37 +1,48 @@
+//// PERLIN NOISE TEXTURE GENERATOR ////
+//// Draws a low-resolution texture to the canvas using perlin noise ////
+
+// CANVAS SETUP //
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const cL = window.innerWidth < 500 ? 300 : 400; // Canvas Dimensions
+const cL = window.innerWidth < 500 ? 300 : 400; // Canvas Dimensions - mobile: 300px, larger: 400px
 canvas.width = canvas.height = cL;
+
+// HTML SELECTORS //
 
 const colorSelector = document.getElementById("color");
 const saturationSelector = document.getElementById("saturation");
 const squareSizeSelector = document.getElementById("square");
 const saturationNum = document.getElementById("saturation-num");
 const squareSizeNum = document.getElementById("square-num");
+
+// GLOBALS //
+
 var color;
 var saturation;
-var squareSize;
-
+var squareSize = 1;
 const offInterval = 0.05;
 let xOff = 0;
 let yOff = 10000;
 
+// MAIN //
+
+// intial load and draw
 window.addEventListener("load", () => {
   getDefaultValues();
   draw();
 });
 
+// changes drawing based on the html selectors
 window.addEventListener("input", () => {
   updateValues();
   draw();
 });
 
-function draw() {
-  clearCanvas();
-  fillGrid();
-}
+// FUNCTIONS //
 
-function fillGrid() {
+// uses perlin noise to draw altering colors to the canvas
+function draw() {
   for (let y = 0; y < cL; y += squareSize) {
     yOff += offInterval;
     for (let x = 0; x < cL; x += squareSize) {
@@ -44,7 +55,8 @@ function fillGrid() {
   }
   yOff = 0;
 }
-
+S;
+// resets the html selectors to default values
 function getDefaultValues() {
   color = colorSelector.value = 135;
   saturation = saturationSelector.value = 50;
@@ -53,6 +65,7 @@ function getDefaultValues() {
   squareSizeNum.innerHTML = squareSize;
 }
 
+// updates the canvas with the changed html selector values
 function updateValues() {
   color = colorSelector.value;
   saturation = Number(saturationSelector.value);

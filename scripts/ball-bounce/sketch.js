@@ -1,21 +1,26 @@
+// CANVAS SETUP //
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const cL = window.innerWidth < 500 ? 300 : 400; // Canvas Dimensions
+const cL = window.innerWidth < 500 ? 300 : 400; // Canvas Dimensions - mobile: 300px, larger: 400px
 canvas.width = canvas.height = cL;
 canvas.style.backgroundColor = "black";
+
+// GLOBALS //
+
 const balls = [];
 let frame = 0;
-
 const fps = 240;
 const scale = 100;
 
-// MAIN
+// MAIN //
 
 setup();
 setInterval(draw, 1000 / fps);
 
-// FUNCTIONS
+// FUNCTIONS //
 
+// draws each ball, then updates their position
 function draw() {
   frame++;
   clearCanvas();
@@ -25,6 +30,7 @@ function draw() {
   }
 }
 
+// initializes each ball
 function setup() {
   balls.push(
     new Ball(

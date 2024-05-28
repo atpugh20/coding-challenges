@@ -1,30 +1,33 @@
+// CANVAS SETUP //
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const sandColorSelector = document.getElementById("sand-color");
+const sL = window.innerWidth < 500 ? 350 : 400; // Canvas Dimensions - mobile: 350px, larger: 400px
+canvas.width = canvas.height = sL;
 
-const sL = window.innerWidth < 500 ? 350 : 400; // Side Length
+// GLOBALS //
+
 const particleSize = 5;
 const numberOfSquares = sL / particleSize;
 const FPS = 240;
 const gravity = 0.1;
 var colorCode = (sandColorSelector.value = 47);
-
-canvas.width = sL;
-canvas.height = sL;
 const grid = createGrid();
 const cursor = new Cursor(-50, -50, particleSize, colorCode);
 var interval;
-
 var sandColors = getSandColor(colorCode);
 
-// MAIN
+// MAIN //
 
+// adds event listener for when the movement of mouse / finger
 ["mousemove", "touchmove"].forEach((event) => {
   window.addEventListener(event, (e) => {
     trackMouse(e);
   });
 });
 
+// adds event listener for when the user starts a left click / touch
 ["mousedown", "touchstart"].forEach((event) => {
   window.addEventListener(event, (e) => {
     console.log(e);
@@ -33,11 +36,14 @@ var sandColors = getSandColor(colorCode);
   });
 });
 
+// event listener for when the user releases left click / touch
 ["mouseup", "touchend"].forEach((event) => {
   window.addEventListener(event, () => {
     clearInterval(interval);
   });
 });
+
+// changes the sand color based on the html selector
 sandColorSelector.addEventListener("input", (e) => {
   sandColors = getSandColor(Number(e.target.value));
   cursor.colors = sandColors;
@@ -45,9 +51,10 @@ sandColorSelector.addEventListener("input", (e) => {
 
 setInterval(draw, 1000 / FPS);
 
-// FUNCTIONS
+// FUNCTIONS //
 
-function draw(frame) {
+// draws the cursor and particles to the screen
+function draw() {
   clearCanvas();
   cursor.draw(ctx);
   updateSand(grid);
@@ -60,7 +67,7 @@ function clearCanvas() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-// Draws singlular particle to grid (Designed for multiple substances)
+// draws singlular particle to grid (Designed for multiple substances)
 function drawParticle(grid) {
   for (let row = 0; row < grid.length; row++) {
     for (let col = 0; col < grid[row].length; col++) {
@@ -73,15 +80,15 @@ function drawParticle(grid) {
   }
 }
 
-// Handles sand specifically
+// handles sand creation specifically
 function createSand() {
   if (cursor.x >= 0 && cursor.x < sL && cursor.y >= 0 && cursor.y < sL) {
-    // Choses random point one square away
+    // choses random point one square away
     const randX = Math.floor(Math.random() * 3 - 1);
     const randY = Math.floor(Math.random() * 3 - 1);
     var sX = Math.floor(cursor.x / particleSize) + randX;
     var sY = Math.floor(cursor.y / particleSize) + randY;
-    // Check for borders
+    // check for borders
     sX += sX < 0 ? 1 : 0;
     sX -= sX > numberOfSquares - 1 ? 1 : 0;
     sY += sY < 0 ? 1 : 0;
@@ -92,7 +99,8 @@ function createSand() {
   }
 }
 
-// Sand dropping
+// updates the position of the sand
+// creates the falling effect
 function updateSand(grid) {
   for (let row = grid.length - 2; row >= 0; row--) {
     for (let col = 0; col < grid[row].length; col++) {
@@ -102,12 +110,15 @@ function updateSand(grid) {
       let belowR = grid[row + 1][col + 1];
 
       if (current.isSand) {
+        // if no sand below, drop one
         if (below && !below.isSand) {
           below.isSand = true;
           below.color = current.color;
           current.isSand = false;
           current.color = null;
-        } else if (belowL && belowR && !belowL.isSand && !belowR.isSand) {
+        }
+        // if sand below, check below left and right, creates the slide effect
+        else if (belowL && belowR && !belowL.isSand && !belowR.isSand) {
           const rand = Math.floor(Math.random() * 2);
           if (rand == 0) {
             belowL.isSand = true;
@@ -134,6 +145,8 @@ function updateSand(grid) {
   }
 }
 
+// gets the current sand color from the html selector
+// multiple colors give grainy effect
 function getSandColor(colorCode) {
   return [
     `hsl(${colorCode}, 100%, 40%)`,
@@ -143,6 +156,7 @@ function getSandColor(colorCode) {
   ];
 }
 
+// creates the grid that keeps track of the particle positions
 function createGrid() {
   const cols = Math.floor(canvas.width / particleSize);
   const rows = Math.floor(canvas.height / particleSize);
@@ -163,6 +177,7 @@ function createGrid() {
   return grid;
 }
 
+// tracks the position of the mouse or finger
 function trackMouse(e) {
   const rect = canvas.getBoundingClientRect();
   let mouseX;

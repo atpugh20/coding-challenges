@@ -1,3 +1,5 @@
+// OBJECT COLORS //
+
 const green = "hsl(128, 61%, 50%)";
 const red = "hsl(0, 100%, 50%)";
 const white = "hsl(0, 0%, 100%)";
@@ -7,6 +9,9 @@ const pink = "hsl(350, 100%, 88%)";
 const orange = "hsl(33, 100%, 50%)";
 const yellow = "hsl(60, 100%, 50%)";
 const cyan = "hsl(180, 100%, 50%)";
+
+// The Objects class creates an object that handles the majority of the //
+// instances that will need to be rendered in the main canvas //
 
 class Objects {
   constructor(ctx) {
@@ -22,22 +27,23 @@ class Objects {
     this.addItem();
   }
 
+  // the walls that will be rendered are decided here
   addWalls() {
     const small = mS / 75;
     this.walls = [
-      // Borders
+      // borders
       new Wall(0, 0, mS, 1, 0, green),
       new Wall(0, 0, mS, 1, 90, green),
       new Wall(mS, 0, mS, 1, 90, green),
       new Wall(0, mS, mS, 1, 0, green),
-      // Inner Walls
+      // inner Walls
       new Wall(mS / 2, mS / 2, mS / 4, small, 90, green),
       new Wall(mS / 2, mS / 2, mS / 4, small, 0, green),
       new Wall(mS / 4, mS / 4, mS / 4, small, 0, green),
       new Wall(mS / 2, mS / 4, mS / 4, small, 90, green),
       new Wall(mS, mS / 4, mS / 6, small, 180, green),
       new Wall((mS * 3) / 4, mS / 2, mS / 5, small, -90, green),
-      // Pillars
+      // pillars
       new Wall(mS / 4, mS / 2, mS / 75, mS / 75, 0, green),
       new Wall(mS / 3, mS / 2, small, small, 0, orange),
       new Wall(mS / 6, mS / 2, small, small, 0, blue),
@@ -50,6 +56,7 @@ class Objects {
     ];
   }
 
+  // adds all boundaries from all objects into one encompassing array
   addBoundaries(ctx, objectArray) {
     for (let object of objectArray) {
       const objBoundaries = object.getBoundaries(ctx);
@@ -59,6 +66,7 @@ class Objects {
     }
   }
 
+  // the items that can be rendered are decided here
   addItem() {
     this.items = [
       new Item(

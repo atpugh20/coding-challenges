@@ -1,15 +1,22 @@
+// CANVAS SETUP //
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-
-const sL = window.innerWidth < 500 ? 300 : 400;
+const sL = window.innerWidth < 500 ? 300 : 400; // Canvas Dimensions - mobile: 300px, larger: 400px
 canvas.width = sL;
 canvas.height = sL;
-const particle = new Particle(sL / 2, sL / 2);
-const walls = [];
+
+// HTML SELECTORS //
+
 const rayCountSlider = document.getElementById("ray-count");
 const rayColorSelector = document.getElementById("ray-color");
 const rayLengthSelector = document.getElementById("ray-length");
 const rayStrengthSelector = document.getElementById("ray-strength");
+
+// GLOBALS //
+
+const particle = new Particle(sL / 2, sL / 2);
+const walls = [];
 for (let i = 0; i < 5; i++) {
   const x1 = Math.floor(Math.random() * sL);
   const y1 = Math.floor(Math.random() * sL);
@@ -18,13 +25,14 @@ for (let i = 0; i < 5; i++) {
   walls.push(new Boundary(x1, y1, x2, y2));
 }
 
-// MAIN
+// MAIN //
 
 window.addEventListener("load", () => {
   resetRays();
   draw();
 });
 
+// sets the light particle to move with the mouse
 ["mousemove", "touchmove"].forEach((event) => {
   canvas.addEventListener(event, (e) => {
     trackMouse(e);
@@ -32,6 +40,7 @@ window.addEventListener("load", () => {
   });
 });
 
+// these listeners update the canvas when the html sliders are changed
 rayCountSlider.addEventListener("input", (e) => {
   particle.updateRayCount(Math.abs(Number(e.target.value)));
   updateRays();
@@ -42,17 +51,16 @@ rayStrengthSelector.addEventListener("input", updateRays);
 
 // FUNCTIONS
 
+// draws the light particle and all of the walls
 function draw() {
-  ctx.clearRect(0, 0, sL, sL);
-  ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, sL, sL);
+  clearCanvas();
   for (let wall of walls) {
     wall.show(ctx);
   }
-
   particle.show(ctx, walls);
 }
 
+// sets html sliders back to default
 function resetRays() {
   rayCountSlider.value = -0.1;
   rayColorSelector.value = "white";
@@ -61,6 +69,7 @@ function resetRays() {
   particle.update(particle.x, particle.y);
 }
 
+// updates ray settings with html slider values
 function updateRays() {
   for (ray of particle.rays) {
     ray.color = rayColorSelector.value;
@@ -71,6 +80,7 @@ function updateRays() {
   draw();
 }
 
+//gets the mouse/touch position on the canvas and updates the particle with it
 function trackMouse(e) {
   const rect = canvas.getBoundingClientRect();
   let mouseX;
@@ -83,4 +93,10 @@ function trackMouse(e) {
     mouseY = e.clientY - rect.top;
   }
   particle.update(mouseX, mouseY);
+}
+
+function clearCanvas() {
+  ctx.clearRect(0, 0, sL, sL);
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, sL, sL);
 }

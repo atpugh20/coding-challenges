@@ -1,20 +1,20 @@
+// CANVAS SETUP //
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-
-// Sizing
 const wH = window.innerHeight;
 const wW = window.innerWidth;
 const wS = wW > wH ? wH : wW; // Smaller Size
-
 canvas.width = wS / 2;
 canvas.height = wS / 2;
 const mS = canvas.width * (1 / 4); // Map Size
 
-// Object Declaration
+// OBJECTS //
+
 const objects = new Objects(ctx);
 const particle = new Particle(mS / 4, mS / 5);
 
-// MAIN
+// MAIN //
 
 let id = null;
 let itemNum = 0;
@@ -22,12 +22,15 @@ window.addEventListener("load", () => {
   setup();
   draw(itemNum);
 });
+
+// ensures that the window is actually adjusting size
 window.addEventListener("resize", () => {
   if (wW !== window.innerWidth) {
     window.location.reload();
   }
 });
 
+// Adds the event listeners for the button down events
 ["keydown", "mousedown", "touchstart"].forEach((eventType) => {
   window.addEventListener(
     eventType,
@@ -40,6 +43,7 @@ window.addEventListener("resize", () => {
   );
 });
 
+// adds event listeners for the button release events
 ["keyup", "mouseup", "touchend"].forEach((eventType) => {
   window.addEventListener(eventType, (e) => {
     if (e.key === "k" || e.target.classList.contains("a-button")) {
@@ -50,8 +54,9 @@ window.addEventListener("resize", () => {
   });
 });
 
-// FUNCTIONS
+// FUNCTIONS //
 
+// handles the drawing on the canvas for every frame
 function draw(itemNum, frame = 0) {
   clearCanvas();
   renderFloor();
@@ -60,6 +65,7 @@ function draw(itemNum, frame = 0) {
   renderHeldItem(frame, itemNum);
 }
 
+// assigns the movement actions to certain keys / buttons
 function handleButtonPress(e) {
   let frame = 0;
   id = setInterval(() => {
@@ -86,6 +92,7 @@ function handleButtonPress(e) {
   }, 16.67);
 }
 
+// renders all of the boundaries from the Objects object to the main canvas
 function renderObjects() {
   const scene = getScene(particle.rays);
   const interval = canvas.width / scene.length;
@@ -110,6 +117,7 @@ function renderObjects() {
   }
 }
 
+// renders the floor color based off of the distance from the center of the canvas
 function renderFloor() {
   let colorNum;
   for (let y = canvas.height; y >= canvas.height / 2; y--) {
@@ -132,10 +140,12 @@ function renderFloor() {
   }
 }
 
+// draws the item that is selected by the player
 function renderHeldItem(frame, itemNum) {
   objects.items[itemNum].render(ctx, frame, id, draw);
 }
 
+// draws a small map and fov in the top left corner of the canvas
 function drawMiniMap(ctx, objects) {
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, mS, mS);
@@ -153,6 +163,7 @@ function getRenderDistance(ray) {
   return renderDistances;
 }
 
+// the scene decides the rendering of the rays that are in the FOV
 function getScene(rays) {
   const scene = [];
   for (let ray of rays) {
@@ -170,6 +181,7 @@ function clearCanvas() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+// initial declarations
 function setup() {
   const gameSection = document.getElementById("game-section");
   const gameButtonSection = document.getElementById("game-buttons");
@@ -189,6 +201,7 @@ function setup() {
   }
 }
 
+// adjusts the position of the on screen buttons based on the window width and height
 function repositionButtons() {
   const gameButtonSection = document.getElementById("game-buttons");
   gameButtonSection.style.margin = "auto";

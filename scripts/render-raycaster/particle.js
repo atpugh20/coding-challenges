@@ -1,3 +1,6 @@
+// A particle is the origin point of all rays //
+// it is moved with the keyboard //
+
 class Particle {
   constructor(x, y) {
     this.x = x;
@@ -5,7 +8,7 @@ class Particle {
     this.moveDistance = 1;
     this.turnAngleDeg = 22.5;
     this.rays = [];
-    this.rayCount = 0.1;
+    this.rayCount = 0.1; // the number of degrees between each ray
     this.fov = 80;
     this.movementField = 2;
     this.dirDeg = 0;
@@ -18,6 +21,7 @@ class Particle {
     }
   }
 
+  // invokes each rays cast function, then draws them all to the canvas
   show(ctx, walls) {
     for (let ray of this.rays) {
       ray.cast(walls);
@@ -27,6 +31,7 @@ class Particle {
     }
   }
 
+  // updates the position and FOV of the particle
   update(x, y, walls) {
     this.x = x;
     this.y = y;
@@ -37,6 +42,7 @@ class Particle {
     }
   }
 
+  // updates the number of rays coming from the particle
   updateRayCount(rayCount) {
     this.rays = [];
     this.rayCount = rayCount;
@@ -49,6 +55,7 @@ class Particle {
     }
   }
 
+  // turns the FOV of the particle
   changeDirection(dir, ctx, walls) {
     if (dir === 1) {
       this.dirDeg -= this.turnAngleDeg;
@@ -62,6 +69,9 @@ class Particle {
       this.show(ctx, walls);
     }
   }
+
+  // moves the particle either forward or backward based on the FOV
+  // does not move if there is an obstacle in the direction's movement field
   move(dir, walls) {
     var obstacle = true;
     var dirRads = 0;
@@ -86,6 +96,7 @@ class Particle {
     }
   }
 
+  // checks if there is a wall within the movement field, if there is, it returns true
   checkForObstacle(angleDeg, walls) {
     for (let ray of this.rays) {
       ray.cast(walls);

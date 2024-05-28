@@ -1,3 +1,5 @@
+// Rays extend out from the particle and gather values for the view render //
+
 class Ray {
   constructor(pos, angle) {
     this.color = "hsl(0, 0%, 100%)";
@@ -8,16 +10,17 @@ class Ray {
     this.a = { x: pos[0], y: pos[1] };
     this.b = this.coordinateUpdate();
     this.oldB = this.coordinateUpdate();
-    // this.objects = [];
+    // this.objects = []; // can be used for multiple layers of rendering
     this.object = { obj: null, dist: Infinity };
   }
 
+  // draws the ray on the canvas with a gradient color
   show(ctx) {
     const gradient = ctx.createLinearGradient(
       this.a.x,
       this.a.y,
-      this.oldB.x,
-      this.oldB.y
+      this.oldB.x, // the gradient uses oldB x/y to ensure that the gradient
+      this.oldB.y // is proportional to the original length of the line
     );
     gradient.addColorStop(0, "hsl(0, 0%, 100%)");
     gradient.addColorStop(this.strength, this.color);
@@ -30,6 +33,7 @@ class Ray {
     ctx.stroke();
   }
 
+  // prepares the ray positions and calls the get intersection function
   cast(objects) {
     const x1 = this.a.x;
     const y1 = this.a.y;
@@ -38,6 +42,7 @@ class Ray {
     this.getIntersection(objects.boundaries, x1, y1, x2, y2);
   }
 
+  // decides the color of the rendered wall based on its ray distance
   getObjectColor(distanceToObject, hsl, particle) {
     if (hsl === undefined) return "white";
     const splitColor = hsl.split(", ");
@@ -58,6 +63,9 @@ class Ray {
     return newColor;
   }
 
+  // checks each boundary to see if the ray intersects it. If it does, the ray stops at the wall
+  // if not, it continues to extend to its maximum length
+  //// formula: https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection, under section: Given two points on each line segment
   getIntersection(objectArray, x1, y1, x2, y2) {
     for (let object of objectArray) {
       let x3 = object.a.x;
@@ -89,6 +97,7 @@ class Ray {
     }
   }
 
+  // returns the coordinates that the ray extends out to (not the origin, but the end)
   coordinateUpdate() {
     return {
       x: this.a.x + Math.cos(this.dirRads) * this.length,
@@ -96,6 +105,8 @@ class Ray {
     };
   }
 
+  // checks if the ray is in the FOV shown on the minimap
+  // used for the wall rendering on the main canvas
   isInFov(particleDirDeg, particleFov) {
     var upperBound = particleDirDeg + particleFov / 2;
     var lowerBound = particleDirDeg - particleFov / 2;

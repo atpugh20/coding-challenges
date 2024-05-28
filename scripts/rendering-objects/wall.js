@@ -1,3 +1,7 @@
+// A wall is a series of boundaries organized in a rectangle/square //
+// rendered on the map in 2 dimensions (length / width) //
+// rendered on the main canvas with 3 dimensions //
+
 class Wall {
   constructor(x, y, length, width, angleDegs, color) {
     this.x = x;
@@ -12,6 +16,8 @@ class Wall {
     this.type = "wall";
   }
 
+  // positions each boundary based off of the
+  // wall's position, angle, length, and width
   getBoundaries(ctx, type) {
     const x2 = this.length * Math.cos(this.angleRads) + this.x;
     const y2 = this.length * Math.sin(this.angleRads) + this.y;

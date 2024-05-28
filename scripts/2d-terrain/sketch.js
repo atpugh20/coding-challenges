@@ -1,12 +1,13 @@
-// Setup
+// CANVAS SETUP //
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const cL = window.innerWidth < 500 ? 300 : 400; // Canvas Dimensions
+const cL = window.innerWidth < 500 ? 300 : 400; // Canvas Dimensions - mobile: 300px, larger: 400px
 canvas.width = canvas.height = cL;
 canvas.style.backgroundColor = "black";
-let xOff = 0;
 
-// Selectors
+// DOM SELECTORS //
+
 const colorSelector = document.getElementById("hill-color");
 const scaleSelector = document.getElementById("scale");
 const brightnessSelector = document.getElementById("brightness");
@@ -15,7 +16,9 @@ const scaleNum = document.getElementById("scale-num");
 const brightnessNum = document.getElementById("brightness-num");
 const widthNum = document.getElementById("width-num");
 
-// Globals
+// GLOBALS //
+
+let xOff = 0;
 const fps = 60;
 const offInterval = 0.005;
 var hillColor = 100;
@@ -23,19 +26,21 @@ var scale = 150;
 var lineWidth = 1;
 var brightness = 30;
 
-// MAIN
+// MAIN //
 
 window.addEventListener("load", getDefaultValues);
 setInterval(draw, 1000 / fps);
 window.addEventListener("input", updateHillValues);
 
-// FUNCTIONS
+// FUNCTIONS //
 
+// draws the main line, screenshots the canvas, and moves it down one line to give movement effect
 function draw() {
   drawLine();
   ctx.drawImage(canvas, 0, 1, cL, cL);
 }
 
+// draws line of rectangles that differ in color based on the noise
 function drawLine() {
   for (let x = 0; x < cL; x++) {
     const noise = getNoise(x);
@@ -46,12 +51,14 @@ function drawLine() {
   }
 }
 
+// returns a perlin noise value from the xOffset value (x)
 function getNoise(x) {
   xOff += offInterval;
   const intervalX = perlin.get(x / scale, xOff / scale) / 2 + 0.5;
   return intervalX;
 }
 
+// fetches changeable values from the HTML sliders
 function updateHillValues() {
   clearCanvas();
   hillColor = colorSelector.value;
@@ -60,6 +67,7 @@ function updateHillValues() {
   lineWidth = widthNum.innerHTML = widthSelector.value;
 }
 
+// changes HTML sliders to default values
 function getDefaultValues() {
   colorSelector.value = 100;
   scaleSelector.value = scaleNum.innerHTML = 150;

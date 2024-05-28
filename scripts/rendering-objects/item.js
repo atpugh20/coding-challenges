@@ -1,3 +1,5 @@
+// Items are objects that are held by the player //
+
 class Item {
   constructor(name, x, y, width, height) {
     this.name = name;
@@ -15,6 +17,8 @@ class Item {
     this.swing3.src = `${this.name}4.svg`;
   }
 
+  // handles the canvas draw of the item
+  // the counter decides how it will be animated
   render(ctx, counter) {
     if (counter < 1) {
       ctx.drawImage(this.img, this.x, this.y, this.width, this.height);

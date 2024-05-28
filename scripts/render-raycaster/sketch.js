@@ -1,19 +1,27 @@
+// CANVAS SETUP //
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const sL = window.innerWidth < 500 ? 350 : 400;
+const sL = window.innerWidth < 500 ? 350 : 400; // Canvas Dimensions - mobile: 300px, larger: 400px
 canvas.width = sL;
 canvas.height = sL;
-const mapSize = canvas.width * (1 / 4);
-const particle = new Particle(5, 18);
+
+// HTML SELECTORS //
+
 const rayCountSelector = document.getElementById("ray-count");
 const rayColorSelector = document.getElementById("ray-color");
 const rayStrengthSelector = document.getElementById("ray-strength");
 const fovSelector = document.getElementById("fov");
-var lastUpdateTime = Date.now();
+
+// GLOBALS //
+
+const mapSize = canvas.width * (1 / 4);
+const particle = new Particle(5, 18);
 const walls = [];
 
-// MAIN
+// MAIN //
 
+// initial load and draw
 window.addEventListener("load", () => {
   setup();
   resetRays();
@@ -21,10 +29,12 @@ window.addEventListener("load", () => {
   draw();
 });
 
+// moves particle with the keyboard
 window.addEventListener("keydown", (e) => {
   moveParticle(e);
 });
 
+// these listeners update the ray settings with the html selectors
 rayCountSelector.addEventListener("input", (e) => {
   particle.updateRayCount(Math.abs(Number(e.target.value)));
   updateRays();
@@ -35,6 +45,7 @@ fovSelector.addEventListener("input", updateRays);
 
 // FUNCTIONS
 
+// pushes each wall into the walls array (4 edge walls and 5 random walls)
 function setup() {
   walls.push(new Boundary(0, 0, mapSize, 0));
   walls.push(new Boundary(0, 0, 0, mapSize));
@@ -49,10 +60,9 @@ function setup() {
   }
 }
 
+// draws the floor, walls, and minimap to the canvas
 function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "black";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  clearCanvas();
   renderFloor();
   renderWalls();
   ctx.fillStyle = "black";
@@ -63,6 +73,7 @@ function draw() {
   particle.show(ctx, walls);
 }
 
+// sets the html selectors back to default, then updates the particle with these values
 function resetRays() {
   rayCountSelector.value = -0.1;
   rayColorSelector.value = "hsl(0, 0%, 100%)";
@@ -71,6 +82,7 @@ function resetRays() {
   particle.update(particle.x, particle.y, walls);
 }
 
+// updates the rays with changed html selector values
 function updateRays() {
   for (ray of particle.rays) {
     ray.color = rayColorSelector.value;
@@ -87,6 +99,7 @@ function updateRays() {
   draw();
 }
 
+// enables the keyboard to move the particle around the minimap, and then re-renders the view
 function moveParticle(e) {
   const pressedKey = e.key;
   const currentTime = Date.now();
@@ -117,6 +130,7 @@ function moveParticle(e) {
   }
 }
 
+// renders a first-person POV, drawn from the FOV on the minimap
 function renderWalls() {
   const scene = [];
   for (let ray of particle.rays) {
@@ -127,6 +141,8 @@ function renderWalls() {
   const interval = canvas.width / scene.length;
   let x = 0;
   let wallHeight = 0;
+  // height is decided by the distance of the particle from the wall
+  // the getRenderDistance function calculates this
   for (let ray of scene) {
     const renderDistance = getRenderDistance(ray);
     wallHeight = (canvas.height / renderDistance) * 10;
@@ -141,6 +157,8 @@ function renderWalls() {
   }
 }
 
+// uses the length of the ray to get the height that needs to be displayed
+//  and reduces the fish bowl visual effect
 function getRenderDistance(ray) {
   const newAngle = ray.dirDeg - particle.dirDeg;
   const newAngleRads = (newAngle * Math.PI) / 180;
@@ -148,6 +166,8 @@ function getRenderDistance(ray) {
   return renderDistance;
 }
 
+// adjusts the color of the walls based off of the ray distance
+// makes the walls appear closer / further
 function getWallColor(distanceToWall, hsl) {
   const splitColor = hsl.split(", ");
   const splitBrightness = splitColor[2].split("%");
@@ -167,6 +187,7 @@ function getWallColor(distanceToWall, hsl) {
   return `${splitColor[0]}, ${splitColor[1]}, ${brightnessNum}%)`;
 }
 
+// adjusts the color of the floor based on its canvas y-value
 function renderFloor() {
   let colorNum;
   console.log(canvas.height);
@@ -182,10 +203,17 @@ function renderFloor() {
   }
 }
 
+// prevents the keyboard from changing the color of the rays / walls
 function IgnoreAlpha(e) {
   if (e.keyCode >= 65 && e.keyCode <= 90) {
     // A to Z
     e.returnValue = false;
     e.cancel = true;
   }
+}
+
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
