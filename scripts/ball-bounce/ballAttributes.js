@@ -21,3 +21,7 @@ const bowlingball = {
   radius: 0.105,
   stopRatio: -0.5,
 };
+
+const football = {
+  color: "#815337",
+};

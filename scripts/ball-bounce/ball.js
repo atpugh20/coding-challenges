@@ -1,15 +1,14 @@
 // Each ball will have a different size, color, and bounciness //
 
 class Ball {
-  constructor(x, y, radius, color, stopRatio) {
+  constructor(pos, radius, color, stopRatio) {
     this.gravity = (9.8 * scale) / fps;
-    this.pos = { x: x, y: y };
-    this.vel = { x: 10, y: 0 };
+    this.pos = { x: pos, y: pos };
+    this.vel = { x: 0, y: 0 };
     this.acc = { x: 0, y: this.gravity };
     this.color = color;
     this.radius = radius * scale;
     this.stopRatio = stopRatio; // vertical velocity reduction
-    this.wallStopRatio = -0.7; // horizontal velocity reduction off wall
     this.friction = 0.98; // horizontal velocity reduction off ground
   }
 
@@ -43,18 +42,25 @@ class Ball {
     if (this.pos.y <= this.radius) {
       this.vel.y *= this.stopRatio;
       this.pos.y = this.radius;
+      this.vel.x *= this.friction;
     }
     // right Wall
     if (this.pos.x >= cL - this.radius) {
-      this.vel.x *= -0.7;
+      this.vel.x *= this.stopRatio;
       this.pos.x = cL - this.radius;
-      this.vel.y *= this.stopRatio * -1;
+      this.vel.y *= this.friction;
     }
     // left Wall
     if (this.pos.x <= this.radius) {
-      this.vel.x *= -0.7;
+      this.vel.x *= this.stopRatio;
       this.pos.x = this.radius;
-      this.vel.y *= this.stopRatio * -1;
+      this.vel.y *= this.friction;
     }
+  }
+
+  // changes the balls velocity based off of the html selectors
+  launch(launchX, launchY) {
+    this.vel.x += launchX;
+    this.vel.y += launchY;
   }
 }
