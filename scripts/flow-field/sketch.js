@@ -60,6 +60,7 @@ setInterval(draw, 33.33);
 
 // draws and updates the particles on the screen
 function draw() {
+  // clearCanvas();
   for (let particle of particles) {
     particle.follow(flowField, squareNum, scale);
     particle.show(ctx);
@@ -71,10 +72,10 @@ function draw() {
 function setup() {
   yOff = 0;
   for (let y = 0; y <= squareNum; y++) {
-    yOff += 0.137;
+    yOff += 0.037;
     xOff = 0;
     for (let x = 0; x <= squareNum; x++) {
-      xOff += 0.136;
+      xOff += 0.036;
       // noise is calculated in the vector class
       const newVector = new Vector(x * scale, y * scale, scale, xOff, yOff);
       vectors.push(newVector);
@@ -110,9 +111,9 @@ function updateValues() {
 
 // resets the html sliders and values
 function resetValues() {
-  for (let color of colorSelectors) {
-    color.value = "#0FFF50";
-  }
+  colorSelectors[0].value = "#0FFF50";
+  colorSelectors[1].value = "#000000";
+  colorSelectors[2].value = "#000000";
   sizeSelector.value = 1;
   numSelector.value = 2000;
   magSelector.value = 0.5;

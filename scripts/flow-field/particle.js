@@ -6,6 +6,14 @@ class Particle {
       x: Math.random() * cL,
       y: Math.random() * cL,
     };
+    this.vel = {
+      x: 0,
+      y: 0,
+    };
+    this.acc = {
+      x: 0,
+      y: 0,
+    };
     this.color = color;
     this.size = size;
     this.cL = cL; // canvas length
