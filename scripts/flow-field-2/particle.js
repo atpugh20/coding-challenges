@@ -1,8 +1,8 @@
 class Particle {
-  constructor(cL, size) {
+  constructor(cL, size, lifeLimit) {
     this.pos = {
-      x: Math.random() * cL,
-      y: Math.random() * cL,
+      x: rand(canvas.width + 100) - 50,
+      y: rand(canvas.height + 100) - 50,
     };
     this.vel = {
       x: 0,
@@ -11,7 +11,7 @@ class Particle {
     this.color = particleColors[rand(particleColors.length)];
     this.size = size;
     this.cL = cL; // canvas length
-    this.lifeLimit = 1000;
+    this.lifeLimit = lifeLimit;
     this.life = rand(this.lifeLimit);
   }
 
@@ -43,13 +43,5 @@ class Particle {
       y: Math.random() * this.cL,
     };
     this.life = 0;
-  }
-
-  // when a particle touches the edge, it returns to the edge opposite of it, similar to pacman
-  edge() {
-    if (this.pos.x > this.cL) this.pos.x = 0;
-    if (this.pos.x < 0) this.pos.x = this.cL;
-    if (this.pos.y > this.cL) this.pos.y = 0;
-    if (this.pos.y < 0) this.pos.y = this.cL;
   }
 }

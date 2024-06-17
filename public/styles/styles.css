@@ -31,6 +31,10 @@ label {
   font-weight: bolder;
 }
 
+button {
+  cursor: pointer;
+}
+
 .challenge-list {
   display: flex;
   justify-content: space-evenly;
