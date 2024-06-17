@@ -65,21 +65,11 @@ label {
   margin-bottom: 75px;
 }
 
-.challenge-list img {
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  background-color: black;
-  border: solid 2px white;
-  border-radius: 25px;
-  translate: 0 -50px;
-}
-
 .challenge-list a p {
   translate: 0 23px;
 }
 
-.button:hover img {
+.button:hover {
   animation: hover-project 400ms forwards;
 }
 
@@ -258,12 +248,13 @@ label {
 
 @keyframes hover-project {
   50% {
-    translate: 0 -75px;
+    scale: 120%;
+    border-radius: 0;
   }
   100% {
-    translate: 0 -60px;
-    scale: 120%;
-    /* border-radius: 0; */
+    scale: 100%;
+    border-radius: 0;
+    border-color: red;
   }
 }
 
