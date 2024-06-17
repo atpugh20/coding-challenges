@@ -2,9 +2,8 @@
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const sL = window.innerWidth < 500 ? 350 : 400; // Canvas Dimensions - mobile: 300px, larger: 400px
-canvas.width = sL;
-canvas.height = sL;
+const sL = window.innerWidth < 600 ? 350 : 600; // Canvas Dimensions - mobile: 350px, larger: 600px
+canvas.width = canvas.height = sL;
 
 // HTML SELECTORS //
 

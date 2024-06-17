@@ -2,7 +2,7 @@
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const cL = window.innerWidth < 500 ? 300 : 400; // Canvas Dimensions - mobile: 300px, larger: 400px
+const cL = window.innerWidth < 600 ? 350 : 600; // Canvas Dimensions - mobile: 350px, larger: 600px
 canvas.width = canvas.height = cL;
 canvas.style.backgroundColor = "black";
 

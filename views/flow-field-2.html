@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/styles/styles.css" />
+    <title>Flow Field 2</title>
+  </head>
+  <body>
+    <div class="canvas-section">
+      <canvas id="canvas">Not able to render canvas.</canvas>
+    </div>
+    <div class="selector-section">
+      <div class="ray-selectors">
+        <div class="ray-changer">
+          <label for="color1">Color 1:</label>
+          <input type="color" class="color" value="#618B4A" />
+        </div>
+        <div class="ray-changer">
+          <label for="color1">Color 2:</label>
+          <input type="color" class="color" value="#40531B" />
+        </div>
+        <div class="ray-changer">
+          <label for="color1">Color 3:</label>
+          <input type="color" class="color" value="#D7F9F1" />
+        </div>
+
+        <div class="ray-changer">
+          <label for="size">Size:</label>
+          <input
+            type="range"
+            id="size"
+            name="size"
+            value="1"
+            min="1"
+            max="5"
+            step="1"
+          />
+          <label for="size" id="size-num"></label>
+        </div>
+        <div class="ray-changer">
+          <label for="num">Number: </label>
+          <input
+            type="range"
+            id="num"
+            name="num"
+            value="2000"
+            min="500"
+            max="5000"
+            step="500"
+          />
+          <label for="num" id="num-num"></label>
+        </div>
+
+        <div class="ray-changer">
+          <label for="scale">Scale:</label>
+          <input
+            type="range"
+            id="scale"
+            name="scale"
+            value="2"
+            min="2"
+            max="20"
+            step="2"
+          />
+          <label for="scale" id="scale-num"></label>
+        </div>
+        <div class="ray-changer">
+          <label for="life">Particle Life:</label>
+          <input
+            type="range"
+            id="life"
+            name="life"
+            value="2"
+            min="2"
+            max="20"
+            step="2"
+          />
+          <label for="life" id="life-num"></label>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://joeiddon.github.io/perlin/perlin.js"></script>
+    <script src="/scripts/flow-field-2/vector.js"></script>
+    <script src="/scripts/flow-field-2/particle.js"></script>
+    <script src="/scripts/flow-field-2/sketch.js"></script>
+  </body>
+</html>

@@ -3,7 +3,7 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const sandColorSelector = document.getElementById("sand-color");
-const sL = window.innerWidth < 500 ? 350 : 400; // Canvas Dimensions - mobile: 350px, larger: 400px
+const sL = window.innerWidth < 600 ? 350 : 600; // Canvas Dimensions - mobile: 350px, larger: 600px
 canvas.width = canvas.height = sL;
 
 // GLOBALS //
