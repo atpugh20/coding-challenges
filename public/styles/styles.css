@@ -53,6 +53,10 @@ button {
   text-align: center;
 }
 
+.disabled {
+  opacity: 20%;
+}
+
 .back:hover {
   transition: 200ms;
   border-radius: 0;
