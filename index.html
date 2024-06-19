@@ -3,163 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="public/styles/styles.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bruno+Ace&family=Maven+Pro&family=Vidaloka&display=swap"
-      rel="stylesheet"
+      rel="shortcut icon"
+      href="./public/images/favicon.ico"
+      type="image/x-icon"
     />
-    <link rel="stylesheet" href="/styles/styles.css" />
-    <link rel="icon" href="./assets/images/favicon.ico" />
-    <title>Alexander Pugh</title>
+    <title>Coding Challenges</title>
   </head>
   <body>
-    <!-- CANVAS -->
+    <!-- TITLE -->
+    <h1>Coding Challenges</h1>
 
-    <canvas class="home-canvas" id="canvas">
-      You must enable JavaScript to view this canvas.
-    </canvas>
-
-    <!-- NAV -->
-
-    <nav class="nav">
-      <h2 class="nav-title">ATP</h2>
-
-      <div id="nav-links" class="nav-links">
-        <div id="about-button" class="button selected-button">ABOUT</div>
-        <div id="projects-button" class="button">PROJECTS</div>
-        <div id="resume-button" class="button">RESUME</div>
-        <div id="home-button" class="button">CANVAS</div>
-      </div>
-    </nav>
-
-    <!-- ABOUT PAGE -->
-
-    <div id="about-page" class="shown-page page">
-      <!-- hero -->
-      <div class="hero section">
-        <div class="hero-text">
-          <h1 class="hero-title">Alexander Pugh</h1>
-          <p class="hero-subtext">Web Developer</p>
-        </div>
-        <div class="img-accent">
-          <img class="hero-img" src="/assets/images/about/alex.jpg" alt="" />
-        </div>
-      </div>
-      <!-- skills -->
-      <div class="skills section">
-        <h2>Skills</h2>
-        <div class="skills-list">
-          <div class="skill">
-            <img src="/assets/images/about/python.webp" alt="" />
-            <p>Python</p>
-          </div>
-          <div class="skill">
-            <img src="/assets/images/about/html5.png" alt="" />
-            <p>HTML</p>
-          </div>
-          <div class="skill">
-            <img src="/assets/images/about/css.png" alt="" />
-            <p>CSS</p>
-          </div>
-          <div class="skill">
-            <img src="/assets/images/about/javascript.svg" alt="" />
-            <p>JavaScript</p>
-          </div>
-          <div class="skill">
-            <img src="/assets/images/about/react-2.svg" alt="" />
-            <p>React.js</p>
-          </div>
-          <div class="skill">
-            <img src="/assets/images/about/php.png" alt="" />
-            <p>PHP</p>
-          </div>
-          <div class="skill">
-            <img src="/assets/images/about/sql.svg" alt="" />
-            <p>SQL</p>
-          </div>
-          <div class="skill">
-            <img src="/assets/images/about/node.svg" alt="" />
-            <p>Node.js</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- summary -->
-      <!-- rewrite the summary to be more relevant -->
-
-      <div class="summary section">
-        <h2>Summary</h2>
-        <p>
-          Seeking to become a Full-Stack Web Developer, I have honed my skills
-          in JavaScript, PHP, Python, React, and SQL. My master’s in public
-          administration has equipped me with strong problem-solving abilities,
-          which are very useful when programming. I am eager to use my
-          programming skills to help streamline solutions to complex tasks.
-        </p>
-      </div>
-    </div>
-    <!-- PROJECTS PAGE -->
-
-    <div id="projects-page" class="hidden page">
-      <!-- main projects -->
-      <div class="section">
-        <h2>Projects</h2>
-        <div class="projects" id="project-list"></div>
-      </div>
-    </div>
-
-    <!-- PROJECT MODAL -->
-
-    <div class="project-modal hidden" id="project-modal">
-      <img
-        class="close-button"
-        id="close-button"
-        src="/assets/images/projects/close-button.svg"
-        alt=""
-      />
-
-      <h2 class="modal-title" id="modal-title"></h2>
-      <a id="button-link" href="" target="_blank"
-        ><button class="button-link" id="modal-button">Visit Site</button></a
+    <!-- PROJECT LIST -->
+    <div class="challenge-list">
+      <a href="views/raycaster.html" class="button">2-D Raycaster </a>
+      <a href="views/render-raycaster.html" class="button"
+        >Rendering the Raycaster</a
       >
-      <p class="modal-summary" id="modal-summary"></p>
-      <div class="first modal-section">
-        <p class="modal-text" id="modal-text1"></p>
-        <img class="modal-img" id="modal-img1" src="" alt="" />
-      </div>
-      <div class="second modal-section">
-        <img class="modal-img" id="modal-img2" src="" alt="" />
-        <p class="modal-text" id="modal-text2"></p>
-      </div>
+      <a href="views/render-objects/render-objects.html" class="button"
+        >Rendering the Raycaster 2</a
+      >
+      <a href="views/sand.html" class="button">Sand</a>
+      <a href="views/perlin-texture.html" class="button"
+        >Textures - Perlin Noise</a
+      >
+      <a href="views/2d-perlin-terrain.html" class="button"
+        >2-D Terrain - Perlin Noise</a
+      >
+      <a href="views/flow-field.html" class="button"
+        >Flow Field - Perlin Noise</a
+      >
+      <a href="views/ball-bounce/ball-bounce.html" class="button"
+        >2-D Ball Simulation</a
+      >
+      <a href="views/flow-field-2.html" class="button">Flow-Field 2</a>
+      <a href="views/level.html" class="button">Level Generator</a>
+
+      <a href="#" class="button disabled">Water Ripples</a>
+      <a href="#" class="button disabled">Game of Life</a>
+      <a href="#" class="button disabled">Twilight Portal</a>
+      <a href="#" class="button disabled">Wind Waker Effects</a>
+      <a href="#" class="button disabled">3-D Terrain - Perlin Noise</a>
+      <a href="#" class="button disabled">Cube Wave</a>
     </div>
-
-    <!-- RESUME PAGE -->
-
-    <div id="resume-page" class="hidden page">
-      <div class="section">
-        <h2>Resume</h2>
-        <img
-          class="resume"
-          src="/assets/images/resume/resumeProgramming.png"
-          alt=""
-        />
-      </div>
-    </div>
-
-    <!-- AUDIO -->
-    <audio src="" type="audio/mp3" id="audio">Audio not supported</audio>
-
-    <!-- SCRIPTS -->
-    <script src="/scripts/data/data.js"></script>
-    <script src="/scripts/background/otherShip.js"></script>
-    <script src="/scripts/background/boost.js"></script>
-    <script src="/scripts/background/asteroid.js"></script>
-    <script src="/scripts/background/ship.js"></script>
-    <script src="/scripts/background/star.js"></script>
-    <script src="/scripts/background/sketch.js"></script>
-    <script src="/scripts/audio/audio.js"></script>
-    <script src="/scripts/client/index.js"></script>
   </body>
 </html>
