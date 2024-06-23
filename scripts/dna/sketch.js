@@ -8,17 +8,25 @@ canvas.style.backgroundColor = "black";
 
 /* GLOBALS */
 
+const fps = 60;
 const particle1 = new Particle(cW / 2, cH / 2, 5, "red");
+const particle2 = new Particle(cW / 2 + 15, cH / 2, 5, "blue");
+const particle3 = new Particle(cW / 2 + 80, cH / 2, 5, "black");
 
 /* MAIN */
 
-draw();
+setInterval(draw, 1000 / fps);
 
 /* FUNCTIONS */
 
 function draw() {
-  clearCanvas();
+  particle1.updateCos();
   particle1.draw(ctx);
+  particle2.updateSin();
+  particle2.draw(ctx);
+  particle3.updateCos();
+  particle3.draw(ctx);
+  ctx.drawImage(canvas, -1, 0, cW, cH);
 }
 
 function setup() {}
