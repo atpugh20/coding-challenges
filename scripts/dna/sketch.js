@@ -9,27 +9,27 @@ canvas.style.backgroundColor = "black";
 /* GLOBALS */
 
 const fps = 60;
-const particle1 = new Particle(cW / 2, cH / 2, 5, "red");
-const particle2 = new Particle(cW / 2 + 15, cH / 2, 5, "blue");
-const particle3 = new Particle(cW / 2 + 80, cH / 2, 5, "black");
+const strand1 = [];
+const strand2 = [];
 
 /* MAIN */
 
+setup();
 setInterval(draw, 1000 / fps);
 
 /* FUNCTIONS */
 
 function draw() {
-  particle1.updateCos();
-  particle1.draw(ctx);
-  particle2.updateSin();
-  particle2.draw(ctx);
-  particle3.updateCos();
-  particle3.draw(ctx);
-  ctx.drawImage(canvas, -1, 0, cW, cH);
+  for (let particle of strand1) {
+    particle.draw(ctx);
+  }
 }
 
-function setup() {}
+function setup() {
+  for (let x = 0; x < cW; x += 1) {
+    strand1.push(new Particle(x, Math.sin(x) * 40 + cH / 2, 5, "red"));
+  }
+}
 
 // Shorthands the process of getting a random number
 function rand(num) {
