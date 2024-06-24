@@ -1,7 +1,7 @@
 class Particle {
   constructor(x, y, size, color) {
     this.pos = { x: x, y: y };
-    this.fakePos = { x: 0, y: 0 }; // for sine and cosine
+    this.fakePos = { x: x, y: y }; // for sine and cosine
     this.size = size;
     this.color = color;
   }
@@ -12,12 +12,13 @@ class Particle {
   }
 
   updateCos() {
-    this.pos.y = Math.cos(this.fakePos.x) * 80 + cH / 2;
-    this.fakePos.x += 0.01;
+    this.pos.y = Math.cos(this.fakePos.x * crestRate) * waveHeight + cH / 2;
+    this.fakePos.x++;
   }
 
   updateSin() {
-    this.pos.y = Math.sin(this.fakePos.x) * 80 + cH / 2;
-    this.fakePos.x += 0.01;
+    this.pos.y =
+      Math.sin(this.fakePos.x * crestRate + 4.7) * waveHeight + cH / 2;
+    this.fakePos.x++;
   }
 }
