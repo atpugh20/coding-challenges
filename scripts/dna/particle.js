@@ -1,24 +1,30 @@
 class Particle {
-  constructor(x, y, size, color) {
-    this.pos = { x: x, y: y };
-    this.fakePos = { x: x, y: y }; // for sine and cosine
+  constructor(x, y, z, size, hue) {
+    this.pos = { x: x, y: y, z: z };
+    this.fakePos = { x: x, y: y, z: z }; // for sine and cosine
     this.size = size;
-    this.color = color;
+    this.hue = hue;
   }
 
   draw(ctx) {
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.pos.x, this.pos.y, this.size, this.size);
+    const distanceColor = `hsl(${this.hue}, 100%, ${this.pos.z / 5}%)`;
+    ctx.fillStyle = distanceColor;
+    ctx.beginPath();
+    ctx.arc(this.pos.x, this.pos.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
   }
 
-  updateCos() {
-    this.pos.y = Math.cos(this.fakePos.x * crestRate) * waveHeight + cH / 2;
+  updatePos1() {
+    this.pos.y = Math.sin(this.fakePos.x * crestRate) * waveHeight + cH / 2;
+    this.pos.z = Math.cos(this.fakePos.x * crestRate) * waveHeight + cH / 2;
     this.fakePos.x++;
   }
 
-  updateSin() {
+  updatePos2() {
     this.pos.y =
-      Math.sin(this.fakePos.x * crestRate + 4.7) * waveHeight + cH / 2;
+      Math.sin(this.fakePos.x * crestRate + 3.1) * waveHeight + cH / 2;
+    this.pos.z =
+      Math.cos(this.fakePos.x * crestRate + 3.1) * waveHeight + cH / 2;
     this.fakePos.x++;
   }
 }
