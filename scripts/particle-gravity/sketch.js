@@ -9,7 +9,7 @@ canvas.style.backgroundColor = "black";
 /* HTML SELECTORS */
 
 /* GLOBALS */
-const FPS = 240;
+const FPS = 60;
 const PARTICLENUM = 5000;
 const PARTICLESIZE = 1;
 var mousePos = {};
@@ -49,7 +49,7 @@ var interval;
         particle.updateVelocity(particle.initialPos.x, particle.initialPos.y);
       }
       // On frame FPS, particles stop entirely
-      if (counter > FPS) {
+      if (counter > FPS * 3) {
         for (let particle of particles) {
           particle.vel.x = 0;
           particle.vel.y = 0;
