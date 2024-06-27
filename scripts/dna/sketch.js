@@ -63,7 +63,7 @@ function draw() {
 
 // Initializes each particle in the strands
 function setup() {
-  for (let x = -50; x < cW + 50; x += 15) {
+  for (let x = -15; x < cW + 15; x += 15) {
     strand1.push(new Particle(x, 0, 0, size, hue1));
     strand2.push(new Particle(x, 0, 0, size, hue2));
   }
@@ -101,7 +101,7 @@ function resetSettings() {
     rateSelector.value = 0.025;
     heightSelector.value = 60;
   } else {
-    rateSelector.value = 0.01;
+    rateSelector.value = 0.015;
     heightSelector.value = 100;
   }
 
