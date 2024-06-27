@@ -18,8 +18,9 @@ const widthNum = document.getElementById("width-num");
 
 // GLOBALS //
 
-let xOff = 0;
 const fps = 60;
+const squareSize = 2;
+let xOff = 0;
 const offInterval = 0.005;
 var hillColor = 100;
 var scale = 150;
@@ -36,25 +37,26 @@ window.addEventListener("input", updateHillValues);
 
 // draws the main line, screenshots the canvas, and moves it down one line to give movement effect
 function draw() {
-  drawLine();
   ctx.drawImage(canvas, 0, 1, cL, cL);
+  drawLine();
 }
 
 // draws line of rectangles that differ in color based on the noise
 function drawLine() {
-  for (let x = 0; x < cL; x++) {
+  for (let x = 0; x < cL; x += squareSize) {
     const noise = getNoise(x);
     ctx.fillStyle = `hsl(${hillColor}, 100%, ${brightness / noise - 40}%)`;
-    ctx.fillRect(x, (cL / 4) * noise, 1, lineWidth);
+    ctx.fillRect(x, (cL / 4) * noise, squareSize, lineWidth);
+    ctx.fillRect(x, (cL / 4) * noise + 1, squareSize, lineWidth);
     ctx.fillStyle = "black";
-    ctx.fillRect(x, (cL / 4) * noise, 1, -400);
+    ctx.fillRect(x, (cL / 4) * noise, squareSize, -400);
   }
 }
 
 // returns a perlin noise value from the xOffset value (x)
 function getNoise(x) {
   xOff += offInterval;
-  const intervalX = perlin.get(x / scale, xOff / scale) / 2 + 0.5;
+  const intervalX = perlin.get((x * 2) / scale, (xOff * 2) / scale) / 2 + 0.5;
   return intervalX;
 }
 
