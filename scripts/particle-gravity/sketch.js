@@ -18,7 +18,7 @@ var interval;
 
 /* MAIN */
 
-// Tracks the mouse's canvas position
+// Tracks the mouse's canvas position as it moves
 ["mousemove", "touchmove"].forEach((event) => {
   window.addEventListener(event, (e) => {
     trackMouse(e);
@@ -29,6 +29,7 @@ var interval;
 ["mousedown", "touchstart"].forEach((event) => {
   window.addEventListener(event, (e) => {
     clearInterval(interval);
+    trackMouse(e);
     interval = setInterval(() => {
       for (let particle of particles) {
         particle.updateVelocity(mousePos.x, mousePos.y);
@@ -97,6 +98,7 @@ function resizeCanvas() {
     cW = canvas.width = window.innerWidth;
     particles = [];
     setup();
+    draw();
   }
 }
 
