@@ -61,7 +61,7 @@ function draw() {
 
 // sets html sliders back to default
 function resetRays() {
-  rayCountSlider.value = -0.1;
+  rayCountSlider.value = -2.1;
   rayColorSelector.value = "white";
   rayLengthSelector.value = 1000;
   rayStrengthSelector.value = 0.7;

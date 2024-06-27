@@ -6,7 +6,7 @@ class Particle {
     this.x = x;
     this.y = y;
     this.rays = [];
-    this.rayCount = 0.1; // the number of degrees between each ray
+    this.rayCount = 2.1; // the number of degrees between each ray
     for (let angle = 0; angle < 360; angle += this.rayCount) {
       this.rays.push(new Ray([this.x, this.y], angle));
     }
