@@ -11,7 +11,7 @@ canvas.style.backgroundColor = "black";
 /* GLOBALS */
 const FPS = 240;
 const PARTICLENUM = 5000;
-const PARTICLESIZE = 3;
+const PARTICLESIZE = 1;
 var mousePos = {};
 var particles = [];
 var interval;
