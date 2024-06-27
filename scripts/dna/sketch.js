@@ -3,7 +3,7 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 var cW = (canvas.width = window.innerWidth - 20);
-const cH = (canvas.height = 240);
+const cH = (canvas.height = 240); // canavs height of 240 produces the best visual results for the color of the DNA strands
 canvas.style.backgroundColor = "black";
 
 /* HTML SELECTORS */
@@ -35,13 +35,8 @@ var strand2 = [];
 
 resetSettings();
 window.addEventListener("input", updateSettings);
+window.addEventListener("resize", resizeCanvas);
 resetButton.addEventListener("click", resetSettings);
-window.addEventListener("resize", () => {
-  if (window.innerWidth != cW) {
-    cW = canvas.width = window.innerWidth - 20;
-    resetSettings();
-  }
-});
 setInterval(draw, 1000 / fps);
 
 /* FUNCTIONS */
@@ -69,12 +64,14 @@ function setup() {
   }
 }
 
+// Updates the strands and the slider numbers with the changed inputs
 function updateSettings() {
   updateStrands();
   updateSettingsTab();
   setup();
 }
 
+// Applies changes of the HTML sliders to the strands and particles
 function updateStrands() {
   strand1 = [];
   strand2 = [];
@@ -85,6 +82,7 @@ function updateStrands() {
   waveHeight = heightSelector.value;
 }
 
+// Applies the changes of the HTML sliders to the slider numbers
 function updateSettingsTab() {
   hue1Num.innerHTML = hue1;
   hue2Num.innerHTML = hue2;
@@ -93,6 +91,7 @@ function updateSettingsTab() {
   rateNum.innerHTML = crestRate;
 }
 
+// Resets all HTML selectors to default, then calls updateSettings()
 function resetSettings() {
   hue1Selector.value = 0;
   hue2Selector.value = 220;
@@ -104,8 +103,14 @@ function resetSettings() {
     rateSelector.value = 0.015;
     heightSelector.value = 100;
   }
-
   updateSettings();
+}
+
+function resizeCanvas() {
+  if (window.innerWidth != cW) {
+    cW = canvas.width = window.innerWidth - 20;
+    resetSettings();
+  }
 }
 
 function clearCanvas() {

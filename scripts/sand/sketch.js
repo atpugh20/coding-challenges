@@ -30,7 +30,6 @@ var sandColors = getSandColor(colorCode);
 // adds event listener for when the user starts a left click / touch
 ["mousedown", "touchstart"].forEach((event) => {
   window.addEventListener(event, (e) => {
-    console.log(e);
     clearInterval(interval);
     interval = setInterval(createSand, 1000 / FPS);
   });
