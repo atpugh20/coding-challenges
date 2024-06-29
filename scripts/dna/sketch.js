@@ -41,6 +41,14 @@ setInterval(draw, 1000 / fps);
 
 /* FUNCTIONS */
 
+// Initializes each particle in the strands
+function setup() {
+  for (let x = -15; x < cW + 15; x += 15) {
+    strand1.push(new Particle(x, 0, 0, size, hue1));
+    strand2.push(new Particle(x, 0, 0, size, hue2));
+  }
+}
+
 function draw() {
   clearCanvas();
   for (let i = 0; i < strand1.length; i++) {
@@ -53,14 +61,6 @@ function draw() {
       strand1[i].draw(ctx);
       strand2[i].draw(ctx);
     }
-  }
-}
-
-// Initializes each particle in the strands
-function setup() {
-  for (let x = -15; x < cW + 15; x += 15) {
-    strand1.push(new Particle(x, 0, 0, size, hue1));
-    strand2.push(new Particle(x, 0, 0, size, hue2));
   }
 }
 
