@@ -64,15 +64,6 @@ setInterval(draw, 1000 / FPS);
 
 /* FUNCTIONS */
 
-// Draws all particles to screen and updates their positions
-function draw() {
-  clearCanvas();
-  for (let particle of particles) {
-    particle.update();
-    particle.draw(ctx);
-  }
-}
-
 // Initialize particles in random spots with random colors
 function setup() {
   for (let i = 0; i < PARTICLENUM; i++) {
@@ -87,12 +78,21 @@ function setup() {
   }
 }
 
+// Draws all particles to screen and updates their positions
+function draw() {
+  clearCanvas();
+  for (let particle of particles) {
+    particle.update();
+    particle.draw(ctx);
+  }
+}
+
 // Shorthands the random function
 function rand(num) {
   return Math.floor(Math.random() * num);
 }
 
-// Resizes canvas width with the window
+// Resizes canvas width with the window, then resets the canvas
 function resizeCanvas() {
   if (window.innerWidth != cW) {
     cW = canvas.width = window.innerWidth;
@@ -109,7 +109,7 @@ function clearCanvas() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-// Updates the mouse position according to the canvas
+// Updates the mouse position in relation to the canvas
 function trackMouse(e) {
   const rect = canvas.getBoundingClientRect();
   let mouseX;
