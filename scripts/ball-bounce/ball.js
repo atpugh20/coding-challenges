@@ -2,7 +2,7 @@
 
 class Ball {
   constructor(pos, radius, color, stopRatio) {
-    this.gravity = (9.8 * scale) / fps;
+    this.gravity = (3 * scale) / fps;
     this.pos = { x: pos, y: pos };
     this.vel = { x: 0, y: 0 };
     this.acc = { x: 0, y: this.gravity };

@@ -16,7 +16,7 @@ const launchButton = document.getElementById("launch-button");
 
 const balls = [];
 let frame = 0;
-const fps = 240;
+const fps = 60;
 const scale = 150;
 const ballSpawn = cL / 2;
 let gravityDirection = "down";
