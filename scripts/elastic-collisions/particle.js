@@ -1,5 +1,4 @@
 
-
 class Particle {
   /**
   * A particle is an object that moves around the canvas. The particles
@@ -32,7 +31,7 @@ class Particle {
 
   collide(other) {
     /**
-    * Handle when two particles collide with each other
+    * Handle when two particles collide with each other.
     */
 
     // Calculate distance between two center points
@@ -74,6 +73,9 @@ class Particle {
   }
 
   handleEdges(canvasWidth, canvasHeight) {
+    /**
+    * Handles when the particle collides with the edge of the canvas.
+    */
     if (this.x < this.radius) {
       this.x = this.radius;
       this.vel.x *= -1;
