@@ -22,7 +22,7 @@ const lifeNum = document.getElementById("life-num");
 
 // GLOBALS //
 
-const fps = 60;
+const fps = 30;
 var particles = [];
 var particleNum;
 var particleSize;

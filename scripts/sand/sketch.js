@@ -10,7 +10,7 @@ canvas.width = canvas.height = sL;
 
 const particleSize = 5;
 const numberOfSquares = sL / particleSize;
-const FPS = 240;
+const FPS = 60;
 const gravity = 0.1;
 var colorCode = (sandColorSelector.value = 47);
 const grid = createGrid();

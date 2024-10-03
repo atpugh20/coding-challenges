@@ -13,7 +13,7 @@ canvas.style.backgroundColor = "black";
 
 /* GLOBALS */
 
-const FPS = 30;
+const FPS = 60;
 
 let frames = 0;
 let initTime = Date.now();

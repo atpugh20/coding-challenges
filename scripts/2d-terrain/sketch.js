@@ -18,7 +18,7 @@ const widthNum = document.getElementById("width-num");
 
 // GLOBALS //
 
-const fps = 60;
+const fps = 30;
 const squareSize = 2;
 let xOff = 0;
 const offInterval = 0.005;
