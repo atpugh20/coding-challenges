@@ -1,12 +1,12 @@
 class Particle {
     constructor(x, y, radius, color) {
-        this.pos        = { x: x, y: y };
-        this.vel        = { x: 0, y: 0 };
-        this.acc        = { x: 0, y: 1 };
-        this.radius     = radius;
+        this.pos        = new Vector(x, y);
+        this.vel        = new Vector(0, 0);
+        this.acc        = new Vector(0, 0);
         this.color      = color;
-        this.restLength = 100;
-        this.k          = 0.01;
+        this.radius     = radius;
+        this.mass       = 1;
+        this.locked     = false;
     }
 
     show(ctx) {
@@ -16,38 +16,18 @@ class Particle {
         ctx.fill();
     }
 
-    distanceToAnchor(deltaX, deltaY) {
-        return Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
+    applyForce(force) {
+        let f = new Vector(force.x, force.y);
+        f.div(this.mass);
+        this.acc.add(f);
     }
 
-    applyForce(anchorX, anchorY) {
-        
-        let force = { x: this.pos.x - anchorX, y: this.pos.y - anchorY };
-        const distToAnchor = this.distanceToAnchor(force.x, force.y);
-        let x = distToAnchor - this.restLength; 
-        
-        // Normalize force
-        force.x /= distToAnchor;
-        force.y /= distToAnchor;
-
-        // Get spring force
-        force.x *= -1 * this.k * x;
-        force.y *= -1 * this.k * x;
-
-        // Apply the force
-        this.vel.x += force.x;
-        this.vel.y += force.y;
-    }
-
-    update(anchorX, anchorY) {
-        this.applyForce(anchorX, anchorY);
-
-        this.vel.x += this.acc.x;
-        this.vel.y += this.acc.y;
-        this.pos.x += this.vel.x;
-        this.pos.y += this.vel.y;
-
-        this.vel.x *= 0.99;
-        this.vel.y *= 0.99;
+    update() {
+        if (!this.locked) {
+            this.vel.add(this.acc);
+            this.pos.add(this.vel);
+            this.acc.mult(0);
+            this.vel.mult(0.99);
+        }
     }
 };

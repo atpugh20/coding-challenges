@@ -1,22 +1,27 @@
 class Spring {
-    constructor(x1, y1, x2, y2, color) {
-        this.a = { x: x1, y: y1 };
-        this.b = { x: x2, y: y2 }; 
-        this.color = color;
+    constructor(k, restLength, pointA, pointB) { 
+        this.k = k;
+        this.restLength = restLength;
+        this.a = pointA;
+        this.b = pointB;
+        this.color = "white";
+    }
+
+    update() {
+        let force = new Vector(this.b.pos.x - this.a.pos.x, this.b.pos.y - this.a.pos.y); 
+        let x = force.mag() - this.restLength;  
+        force.normalize();
+        force.mult(this.k * x);
+        this.a.applyForce(force);
+        force.mult(-1);
+        this.b.applyForce(force);
     }
 
     show(ctx) {
         ctx.beginPath();
         ctx.strokeStyle = this.color;
-        ctx.moveTo(this.a.x, this.a.y);
-        ctx.lineTo(this.b.x, this.b.y);
+        ctx.moveTo(this.a.pos.x, this.a.pos.y);
+        ctx.lineTo(this.b.pos.x, this.b.pos.y);
         ctx.stroke();
-    }
-
-    update(x1, y1, x2, y2) {
-        this.a.x = x1;
-        this.a.y = y1;
-        this.b.x = x2;
-        this.b.y = y2;
     }
 };
