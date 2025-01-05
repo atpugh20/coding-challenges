@@ -10,6 +10,57 @@
     <div class="canvas-section">
       <canvas id="canvas">Not able to render canvas.</canvas>
     </div>
+
+    <div class="selector-section">
+      <div class="ray-selectors">
+
+        <div class="ray-changer">
+          <label for="lines">Show Lines</label>
+          <input 
+            type="checkbox"
+            id="lines"
+            name="lines"
+          >
+        </div>
+
+        <div class="ray-changer">
+          <label for="particles">Show Particles</label>
+          <input 
+            type="checkbox"
+            id="particles"
+            name="particles"
+          >
+        </div>
+
+        <div class="ray-changer">
+          <label for="grav">Enable Gravity</label>
+          <input 
+            type="checkbox"
+            id="grav"
+            name="grav"
+          >
+        </div>
+
+        <div class="ray-changer">
+          <label for="stretch">Stretch</label>
+          <input 
+            type="range"
+            id="stretch"
+            name="stretch"
+            max="0.05"
+            min="0.001"
+            value="0.01"
+            step="0.001"
+          >
+
+          <label id="stretch-num" for="stretch">0.01</label>
+        </div>
+        <div class="ray-changer">
+          <button id="reset-button">Reset Settings</button>
+        </div>
+
+      </div>
+    </div>
     
     <script src="../scripts/vector.js"></script>
     <script src="../scripts/soft-body-physics/spring.js"></script>

@@ -1,6 +1,6 @@
 class Character {
     constructor(k) {
-
+        this.k = k;
         this.vel = new Vector(0, 0);
 
         this.verticies = [
@@ -51,7 +51,7 @@ class Character {
                 if (p1 === p2) continue;
                 this.springs.push(
                     new Spring(
-                        k, 
+                        this.k, 
                         this.distBetween(
                             p1.pos.x, 
                             p1.pos.y, 
@@ -72,15 +72,14 @@ class Character {
     }
 
     show(ctx) {
-
-        if (ShowSprings) {
+        if (linesSelector.checked) {
             ctx.strokeStyle = "rgba(255,255,255,0.05";
             for (let s of this.springs) {
                 s.show(ctx);
             }
         }
 
-        if (ShowParticles) {
+        if (particleSelector.checked) {
             for (let p of this.particles) {
                 p.show(ctx);
             }
@@ -100,5 +99,11 @@ class Character {
         const xd = x1 - x2;
         const yd = y1 - y2;
         return Math.sqrt(xd * xd + yd * yd);
+    }
+
+    updateK(newK) {
+        for (let s of this.springs) {
+            s.k = newK;
+        }
     }
 }
