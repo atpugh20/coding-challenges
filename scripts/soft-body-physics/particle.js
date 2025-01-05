@@ -27,7 +27,7 @@ class Particle {
             this.vel.add(this.acc);
             this.pos.add(this.vel);
             this.acc.mult(0);
-            this.vel.mult(0.9);
+            this.vel.mult(0.99);
 
             if (this.pos.x <= 0) {
                 this.pos.x = 0; 
@@ -46,7 +46,6 @@ class Particle {
                 this.pos.y = cL; 
                 this.vel.y *= -1;
             }
-
         }
     }
 };

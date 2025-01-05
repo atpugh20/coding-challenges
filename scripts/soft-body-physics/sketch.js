@@ -14,9 +14,12 @@ const FPS = 60;
 
 const ParticleColor     = "rgb(255, 130, 0)";
 const ParticleRadius    = 5;
-const RestLength        = 200;
 const k                 = 0.01;
-const g                 = 0.1;
+const g                 = new Vector(0, 0.25);
+
+const ShowSprings =     false;
+const ShowParticles =   false;
+const GravityOn =       false;
 
 function clearCanvas(ctx) {
     ctx.clearRect(0, 0, cL, cL);
@@ -50,21 +53,33 @@ function setup() {
     mousePos = new Vector(0, 0);
     gravity = new Vector(0, g);
 
-    character = new Character();
+    character = new Character(k);
     head = character.particles[0];
 }
 
 function draw() {
     clearCanvas(ctx);
 
-    character.show(ctx); 
- 
+    character.update();
+    character.show(ctx);
+     
     if (mouseDown) {
         head.locked = true;
         head.pos.x = mousePos.x;
         head.pos.y = mousePos.y;
+        head.vel.mult(0);
+        head.acc.mult(0);
+
+    } else {
         head.locked = false;
+    } 
+
+    if (GravityOn) {
+        for (let p of character.particles) {
+            p.applyForce(g);
+        }
     }
+    
 }
 
 // Event listeners for mouse events

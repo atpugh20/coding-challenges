@@ -1,55 +1,104 @@
 class Character {
-    constructor() {
-        this.particles = [
-            new Particle(250, 150, 5, ParticleColor),
-            new Particle(300, 200, 5, ParticleColor),
-            new Particle(300, 300, 5, ParticleColor),
-            new Particle(250, 350, 5, ParticleColor),
-            new Particle(200, 300, 5, ParticleColor),
-            new Particle(200, 200, 5, ParticleColor),
+    constructor(k) {
+
+        this.vel = new Vector(0, 0);
+
+        this.verticies = [
+            // Top 
+            200, 300,
+            250, 300,
+            300, 300,
+            350, 300,
+            400, 300,
+            
+            // Center Right
+            350, 400,  
+            
+            // Bottom
+            400, 500,
+            350, 500,
+            300, 500,
+            250, 500,
+            200, 500,
+            
+            // Center Left
+            250, 400,  
+
+            // Braces
+            200, 400,
+            400, 400,
+
+            // Eyes
+            275, 350,
+            325, 350
         ];
 
-        this.springs = [
-            new Spring(k, RestLength, this.particles[0], this.particles[1]),
-            new Spring(k, RestLength, this.particles[1], this.particles[2]),
-            new Spring(k, RestLength, this.particles[2], this.particles[3]),
-            new Spring(k, RestLength, this.particles[3], this.particles[4]),
-            new Spring(k, RestLength, this.particles[4], this.particles[5]),
-            new Spring(k, RestLength, this.particles[5], this.particles[0]),
+        this.particles = [];
 
-            new Spring(k, RestLength, this.particles[0], this.particles[2]),
-            new Spring(k, RestLength, this.particles[0], this.particles[3]),
-            new Spring(k, RestLength, this.particles[0], this.particles[4]),
-            new Spring(k, RestLength, this.particles[1], this.particles[3]),
-            new Spring(k, RestLength, this.particles[1], this.particles[4]),
-            new Spring(k, RestLength, this.particles[1], this.particles[5]),
-            new Spring(k, RestLength, this.particles[2], this.particles[4]),
-            new Spring(k, RestLength, this.particles[2], this.particles[5]),
-            new Spring(k, RestLength, this.particles[2], this.particles[0]),
-            new Spring(k, RestLength, this.particles[3], this.particles[5]),
-            new Spring(k, RestLength, this.particles[3], this.particles[0]),
-            new Spring(k, RestLength, this.particles[3], this.particles[1]),
-            new Spring(k, RestLength, this.particles[4], this.particles[0]),
-            new Spring(k, RestLength, this.particles[4], this.particles[1]),
-            new Spring(k, RestLength, this.particles[4], this.particles[2]),
-            new Spring(k, RestLength, this.particles[5], this.particles[1]),
-            new Spring(k, RestLength, this.particles[5], this.particles[2]),
-            new Spring(k, RestLength, this.particles[5], this.particles[3]),
-        ];
+        for (let i = 0; i < this.verticies.length; i += 2) {
+            this.particles.push(new Particle(
+                this.verticies[i], 
+                this.verticies[i + 1], 
+                ParticleRadius, 
+                ParticleColor
+            ))
+        }
+
+        this.springs = [];
+
+        for (let p1 of this.particles) {
+            for (let p2 of this.particles) {
+                if (p1 === p2) continue;
+                this.springs.push(
+                    new Spring(
+                        k, 
+                        this.distBetween(
+                            p1.pos.x, 
+                            p1.pos.y, 
+                            p2.pos.x, 
+                            p2.pos.y
+                        ), 
+                        p1, 
+                        p2
+                    )
+                );
+            }
+        }
+    }
+
+    update() {
+        for (let s of this.springs)     s.update();
+        for (let p of this.particles)   p.update();
     }
 
     show(ctx) {
-        for (let i = 0; i < this.springs.length; i++) {
-            this.springs[i].update(); 
-            // if (i < 6) {
-                this.springs[i].show(ctx);
-            // }
-            
+
+        if (ShowSprings) {
+            ctx.strokeStyle = "rgba(255,255,255,0.05";
+            for (let s of this.springs) {
+                s.show(ctx);
+            }
         }
 
-        for (let p of this.particles) {
-            p.update();
-            p.show(ctx);
+        if (ShowParticles) {
+            for (let p of this.particles) {
+                p.show(ctx);
+            }
         }
+
+        // Show body only
+        const shownSprings = [3, 64, 80, 99, 160, 10];
+        ctx.strokeStyle = "white";
+        for (let i = 0; i < shownSprings.length; i++) {
+            this.springs[shownSprings[i]].show(ctx);
+        }
+        this.particles[this.particles.length - 1].show(ctx);
+        this.particles[this.particles.length - 2].show(ctx);
+    }
+
+    distBetween(x1, y1, x2, y2) {
+        const xd = x1 - x2;
+        const yd = y1 - y2;
+        return Math.sqrt(xd * xd + yd * yd);
     }
 }
