@@ -6,10 +6,10 @@ const cH = (canvas.height = window.innerHeight);
 const backgroundColor = "black";
 
 const FPS = 30;
-const flockCount = 100;
-const particleSize = 5;
+const flockCount = 1000;
+const particleSize = 10;
 
-const flock = [];
+const boids = [];
 
 function clearCanvas(ctx) {
     ctx.clearRect(0, 0, cW, cH);
@@ -17,13 +17,21 @@ function clearCanvas(ctx) {
     ctx.fillRect(0, 0, cW, cH);
 }
 
+function rand(num) {
+    return Math.floor(Math.random() * num)
+}
+
+function randomColor() {
+    return `rgb(${rand(255)}, ${rand(255)}, ${rand(255)})`
+}
+
 function setup() {
     for (let i = 0; i < flockCount; i++) {
-        const rX = Math.floor(Math.random() * cW);
-        const rY = Math.floor(Math.random() * cH);
+        const rX = rand(cW);
+        const rY = rand(cH);
 
-        const p = new Particle(rX, rY, particleSize, "white");
-        flock.push(p);
+        const p = new Particle(rX, rY, particleSize, randomColor());
+        boids.push(p);
     }
 }
 
@@ -31,8 +39,8 @@ function draw() {
     // Runs once every frame
     clearCanvas(ctx);
 
-    for (let particle of flock) {
-        particle.align(flock);
+    for (let particle of boids) {
+        particle.flock(boids);
         particle.update(cW, cH);
         particle.draw(ctx);
     }

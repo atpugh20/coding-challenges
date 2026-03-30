@@ -29,16 +29,14 @@ class Vector {
         this.y /= scalar;
     }
 
-    GetMag() {
-        return Math.sqrt(this.x * this.x + this.y * this.y);
-    }
+    
 
     Normalize() {
         const mag = this.GetMag();
 
-        if (mag === 0) return new Vector(0, 0);
+        if (mag === 0) return new Vector(0, 1);
 
-        return new Vector(this.x / mag, this.y / mag);
+        this.Div(mag);
     }
 
     Randomize() {
@@ -63,5 +61,18 @@ class Vector {
         const dist = Math.sqrt(xDelta * xDelta + yDelta * yDelta);
 
         return dist;
+    }
+
+    Copy() {
+        return new Vector(this.x, this.y);
+    }
+
+    GetMag() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+
+    SetMag(newMag) {
+        this.Normalize();
+        this.Mult(newMag);
     }
 }
