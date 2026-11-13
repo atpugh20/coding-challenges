@@ -14,12 +14,12 @@ class vec2 {
 
     // Operations
 
-    add(x, y) {
-        return new vec2(this.x + x, this.y + y);
+    add(vec) {
+        return new vec2(this.x + vec.x, this.y + vec.y);
     }
 
-    subtract(x, y) {
-        return new vec2(this.x - x, this.y - y);
+    subtract(vec) {
+        return new vec2(this.x - vec.x, this.y - vec.y);
     }
 
     multiply(scalar) {
@@ -30,9 +30,9 @@ class vec2 {
         return new vec2(this.x / scalar, this.y / scalar);
     }
 
-    dot(otherVec) {
+    dot(vec) {
         // Dot Product
-        return this.x * otherVec.x + this.y * otherVec.y;
+        return this.x * vec.x + this.y * vec.y;
     }
 
     normalize() {

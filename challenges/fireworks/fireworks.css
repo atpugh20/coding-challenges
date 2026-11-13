@@ -1,7 +1,8 @@
-html {
-    background-color: black;
+body {
+    background-color: #252525;
 }
 
-body {
-    background-color: black;
+.canvas-container {
+    display: flex;
+    justify-content: center;
 }

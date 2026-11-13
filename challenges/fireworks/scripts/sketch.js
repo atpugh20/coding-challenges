@@ -1,18 +1,41 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-function setup() {}
+const backgroundColor = (canvas.style.backgroundColor = "black");
 
-function render() {}
+const cL = (canvas.width = canvas.height = 600);
+const particles = [];
 
-function update(currentTime) {
-    // Update Logic
-    console.log(currentTime);
+let deltaTime = 0;
+let previousTime = 0;
 
-    // Draw
-    render();
-
-    requestAnimationFrame(update);
+function clearCanvas() {
+    ctx.clearRect(0, 0, cL, cL);
+    ctx.fillStyle = backgroundColor;
+    ctx.fillRect(0, 0, cL, cL);
 }
 
-requestAnimationFrame(update);
+function setup() {
+    particles.push(new Particle(300, cL));
+}
+
+function render(currentTime) {
+    // Delta time
+    deltaTime = (currentTime - previousTime) / 1000;
+    previousTime = currentTime;
+
+    clearCanvas();
+
+    for (let particle of particles) {
+        particle.update(deltaTime, cL);
+        particle.draw(ctx);
+    }
+
+    requestAnimationFrame(render);
+}
+
+// MAIN //
+document.addEventListener("DOMContentLoaded", () => {
+    setup();
+    requestAnimationFrame(render);
+});
